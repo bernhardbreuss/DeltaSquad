@@ -1,0 +1,30 @@
+###### GITHUB COMMANDS ########
+
+1. To create local github folder:
+	- Open folder
+	- Right click and select git bash
+	- In console window type: "git init" and click enter
+
+2. To pull from github repository:
+	- open folder
+	- Right click and select git bash
+	- In console window type: "git pull https://github.com/bernhardbreuss/DeltaSquad.git"
+	- enter your username and hit enter
+	- enter your password and hit enter
+
+3. To push changes to repository
+	- Before you push to the online repository you must commit changes you have made.
+	- In the console window type : "git commit -m 'your message here'"
+	- Next you need to pull from the online repository to make sure you have the most up to date version of the project
+	- Once you have commited your changes and pulled the most latest version of the project you can push to the online repository.
+	- In the console window type : "git push https://github.com/bernhardbreuss/DeltaSquad.git"
+	- Enter your username and password
+	- You should be able to see your changes in the online repository.
+
+
+					
+
+					#### IMPORTANT ####
+Always make sure the project is running bug free before pushing changes to the online repository
+
+If you have any problems ask Paddy ;)
