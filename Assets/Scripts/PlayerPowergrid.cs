@@ -1,7 +1,9 @@
-using System;
+using UnityEngine;
 
 public class PlayerPowergrid : Powergrid
 {
+	public float EnergyChange = 10.0f;
+	
 	public NPCPowergrid windPowergrid;
 	public NPCPowergrid solarPowergrid;
 	public HydroPlant hydroPlant;
@@ -9,12 +11,27 @@ public class PlayerPowergrid : Powergrid
 	
 	public override void ProduceLessEnergy ()
 	{
-		throw new NotImplementedException ();
+		UpdatePlant(-1);
 	}
 	
 	public override void ProduceMoreEnergy ()
 	{
-		throw new NotImplementedException ();
+		UpdatePlant (1);
+	}
+	
+	private void UpdatePlant(int factor) {
+		float difference = (factor * Time.deltaTime * EnergyChange);
+		float energy = (ProducedEnergy - ConsumedEnergy + difference);
+		
+		if (energy < 0) {
+			ConsumedEnergy = energy;
+			ProducedEnergy = 0;
+			hydroPlant.Pump();
+		} else {
+			ConsumedEnergy = 0;
+			ProducedEnergy = energy;
+			hydroPlant.GenerateEnergy();
+		}
 	}
 }
 

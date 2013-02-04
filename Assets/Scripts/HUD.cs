@@ -21,6 +21,8 @@ public class HUD : MonoBehaviour {
 	public KeyCode IncreaseOwnKey = KeyCode.W;
 	public KeyCode DecreaseOwnKey = KeyCode.S;
 	
+	public PlayerPowergrid PlayerPowergrid;
+	
 	private int _buttonWidth;
 	private int _buttonHeight;
 	
@@ -69,7 +71,7 @@ public class HUD : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		HzBarGroup(0, (Screen.height - HzBar.height), 50.0f, _ownButtons, IncreaseOwnKey, DecreaseOwnKey, IncreaseOwn, DecreaseOwn);
+		HzBarGroup(0, (Screen.height - HzBar.height), PlayerPowergrid.Frequency, _ownButtons, IncreaseOwnKey, DecreaseOwnKey, PlayerPowergrid.ProduceMoreEnergy, PlayerPowergrid.ProduceLessEnergy);
 	}
 	
 	private void HzBarGroup(float x, float y, float hz, Buttons buttons, KeyCode increaseKey, KeyCode decreaseKey, PressDelegate increase, PressDelegate decrease) {

@@ -7,8 +7,32 @@ public abstract class Powergrid : MonoBehaviour {
 	 *  initial value for ConsumedEnergy and ProducedEnergy
 	 */
 	public float baseEnergy = 100f;
-	public float ConsumedEnergy { get; set; }
-	public float ProducedEnergy { get; set; }
+	private float _consumedEnergy;
+	public float ConsumedEnergy {
+		get {
+			return _consumedEnergy;
+		}
+		set {
+			if (value < 0) {
+				_consumedEnergy = 0.0f;
+			} else {
+				_consumedEnergy = value;
+			}
+		}
+	}
+	private float _producedEnergy;
+	public float ProducedEnergy {
+		get {
+			return _producedEnergy;
+		}
+		set {
+			if (value < 0) {
+				_producedEnergy = 0.0f;
+			} else {
+				_producedEnergy = value;
+			}
+		}
+	}
 	public float ForeignEnergy { get; set; }
 	public float Frequency { get { return 50 * (ProducedEnergy/ConsumedEnergy); } }
 	
