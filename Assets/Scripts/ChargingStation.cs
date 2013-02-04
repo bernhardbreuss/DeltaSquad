@@ -19,8 +19,10 @@ public class ChargingStation : MonoBehaviour {
 	}
 	
 	public void StartCharging() {
+		_powergrid.ConsumedEnergy++;
 	}
 	
 	public void ChargingFinished() {
+		_powergrid.ConsumedEnergy--;
 	}
 }

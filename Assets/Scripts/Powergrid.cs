@@ -8,7 +8,7 @@ public abstract class Powergrid : MonoBehaviour {
 	public int ConsumedEnergy { get; set; }
 	public int ProducedEnergy { get; set; }
 	public int ForeignEnergy { get; set; }
-	public float Frequency { get { return 0f; } }
+	public float Frequency { get { return 50 * (ProducedEnergy/ConsumedEnergy); } }
 	
 	// Use this for initialization
 	void Start () {
