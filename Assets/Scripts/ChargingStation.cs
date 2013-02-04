@@ -4,7 +4,7 @@ using System.Collections;
 public class ChargingStation: MonoBehaviour {
 	
 	private float chargeTime = 5f;
-	private PlayerPowergrid powergrid = null;
+	public PlayerPowergrid powergrid = null;
 	private Car _car = null;
 	public float rechargingRate = 1.0f;	
 	public int incomeCar = 5;
