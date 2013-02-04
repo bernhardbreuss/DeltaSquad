@@ -9,7 +9,6 @@ public class PlayerPowergrid : Powergrid
 	public NPCPowergrid solarPowergrid;
 	public HydroPlant hydroPlant;
 	
-	
 	public override void ProduceLessEnergy ()
 	{
 		UpdatePlant(-1);
@@ -30,15 +29,11 @@ public class PlayerPowergrid : Powergrid
 			hydroPlant.GenerateEnergy();
 		}
 	}
-	public void setEuro(int amount){
-		euro = amount;
-	}
-	public int getEuro(){
-		return euro;
-	}
+	
 	//To decrease or increase the money by a certain amount.
 	public void changeAmountEuro(int amount){ 
-		setEuro(euro - amount);
+		euro += amount;
 	}
+	
 }
 
