@@ -6,7 +6,8 @@ public class ChargingStation: MonoBehaviour {
 	private float chargeTime = 5f;
 	private PlayerPowergrid powergrid = null;
 	private Car _car = null;
-	public float rechargingRate = 1.0f;		
+	public float rechargingRate = 1.0f;	
+	public int incomeCar = 5;
 	
 	public bool IsFree { get; set; }
 	
@@ -32,6 +33,7 @@ public class ChargingStation: MonoBehaviour {
 	public IEnumerator StartCharging() {
 		
 		powergrid.ConsumedEnergy += rechargingRate;
+		powergrid.changeAmountEuro(incomeCar);
 		IsFree = false;						
 		yield return new WaitForSeconds(chargeTime);		
 		ChargingFinished();		
