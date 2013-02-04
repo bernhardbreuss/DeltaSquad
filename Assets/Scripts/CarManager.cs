@@ -1,13 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class CarManager {
+public class CarManager : MonoBehaviour{
 	
 	private WaveManager _waveManager;
 	private List<Car> _cars = new List<Car>();
 	
 	
 	public Car SpawnCar() {
+		Debug.Log("Car Spawned");
 		return null;
 	}
 	
