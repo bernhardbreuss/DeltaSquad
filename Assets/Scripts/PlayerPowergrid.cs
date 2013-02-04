@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerPowergrid : Powergrid
 {
 	public float EnergyChange = 10.0f;
+	public int euro = 10;
 	
 	public NPCPowergrid windPowergrid;
 	public NPCPowergrid solarPowergrid;
@@ -28,6 +29,16 @@ public class PlayerPowergrid : Powergrid
 		} else {
 			hydroPlant.GenerateEnergy();
 		}
+	}
+	public void setEuro(int amount){
+		euro = amount;
+	}
+	public int getEuro(){
+		return euro;
+	}
+	//To decrease or increase the money by a certain amount.
+	public void changeAmountEuro(int amount){ 
+		setEuro(euro - amount);
 	}
 }
 
