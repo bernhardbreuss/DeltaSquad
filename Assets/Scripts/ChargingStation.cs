@@ -35,6 +35,8 @@ public class ChargingStation : MonoBehaviour
 	
 	public IEnumerator StartCharging (Car theCar)
 	{
+		powerGrid.ConsumedEnergy += rechargingRate;
+		
 		IsFree = false;
 		_car = theCar;				
 		yield return new WaitForSeconds(chargeTime);		
