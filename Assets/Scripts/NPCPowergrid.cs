@@ -2,7 +2,7 @@ using System;
 
 public class NPCPowergrid : Powergrid
 {
-	private PlayerPowergrid _playerPowergrid;
+	public PlayerPowergrid PlayerPowergrid;
 	
 	public override void ProduceLessEnergy ()
 	{

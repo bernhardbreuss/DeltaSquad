@@ -3,8 +3,10 @@ using System.Collections;
 
 public abstract class Powergrid : MonoBehaviour {
 	
-	
-	public float baseEnergy;
+	/*
+	 *  initial value for ConsumedEnergy and ProducedEnergy
+	 */
+	public float baseEnergy = 100f;
 	public float ConsumedEnergy { get; set; }
 	public float ProducedEnergy { get; set; }
 	public float ForeignEnergy { get; set; }

@@ -2,9 +2,9 @@ using System;
 
 public class PlayerPowergrid : Powergrid
 {
-	private NPCPowergrid _windPowergrid;
-	private NPCPowergrid _solarPowergrid;
-	private HydroPlant _hydroPlant;
+	public NPCPowergrid windPowergrid;
+	public NPCPowergrid solarPowergrid;
+	public HydroPlant hydroPlant;
 	
 	
 	public override void ProduceLessEnergy ()

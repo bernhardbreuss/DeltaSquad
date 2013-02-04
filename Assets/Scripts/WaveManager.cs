@@ -3,11 +3,17 @@ using System.Collections;
 
 public class WaveManager : MonoBehaviour {
 	
-	private CarManager _carManager;
+	public CarManager carManager;
+	
+	private bool isFinished;
+	//default time between two spawned cars at the beginning
+	public float baseTimeBetweenCars = 5f;
+	public float TimeBetweenCars { get; set; }
 	
 	// Use this for initialization
 	void Start () {
-	
+		isFinished = false;
+		TimeBetweenCars = baseTimeBetweenCars;
 	}
 	
 	// Update is called once per frame
@@ -15,9 +21,15 @@ public class WaveManager : MonoBehaviour {
 	
 	}
 	
-	public void StartNextWave() {
+	public IEnumerator StartNextWave() {
+		isFinished = true;
+		while(!isFinished){
+			carManager.SpawnCar();
+			yield return new WaitForSeconds(TimeBetweenCars);
+		}
 	}
 	
 	public void WaveFinished() {
+		isFinished = true;
 	}
 }

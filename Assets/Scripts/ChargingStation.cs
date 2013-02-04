@@ -3,8 +3,10 @@ using System.Collections;
 
 public class ChargingStation : MonoBehaviour {
 	
-	private PlayerPowergrid _powergrid;
+	public PlayerPowergrid powerGrid;
 	private Car _car;
+	
+	public float rechargingRate = 1;
 	
 	public bool IsFree { get; set; }
 	
@@ -19,10 +21,10 @@ public class ChargingStation : MonoBehaviour {
 	}
 	
 	public void StartCharging() {
-		_powergrid.ConsumedEnergy++;
+		powerGrid.ConsumedEnergy += rechargingRate;
 	}
 	
 	public void ChargingFinished() {
-		_powergrid.ConsumedEnergy--;
+		powerGrid.ConsumedEnergy -= rechargingRate;
 	}
 }
