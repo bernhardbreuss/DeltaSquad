@@ -21,15 +21,11 @@ public class PlayerPowergrid : Powergrid
 	
 	private void UpdatePlant(int factor) {
 		float difference = (factor * Time.deltaTime * EnergyChange);
-		float energy = (ProducedEnergy - ConsumedEnergy + difference);
+		ProducedEnergy = (ProducedEnergy + difference);
 		
-		if (energy < 0) {
-			ConsumedEnergy = energy;
-			ProducedEnergy = 0;
+		if (ProducedEnergy > ConsumedEnergy) {
 			hydroPlant.Pump();
 		} else {
-			ConsumedEnergy = 0;
-			ProducedEnergy = energy;
 			hydroPlant.GenerateEnergy();
 		}
 	}
