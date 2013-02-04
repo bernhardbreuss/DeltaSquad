@@ -3,38 +3,18 @@ using System.Collections;
 
 public abstract class Powergrid : MonoBehaviour {
 	
+	public float EnergyChange = 5.0f;
+	
 	/*
 	 *  initial value for ConsumedEnergy and ProducedEnergy
 	 */
 	public float baseEnergy = 100f;
 	private float _consumedEnergy;
-	public float ConsumedEnergy {
-		get {
-			return _consumedEnergy;
-		}
-		set {
-			if (value < 0) {
-				_consumedEnergy = 0.0f;
-			} else {
-				_consumedEnergy = value;
-			}
-		}
-	}
+	public float ConsumedEnergy { get; set; }
 	private float _producedEnergy;
-	public float ProducedEnergy {
-		get {
-			return _producedEnergy;
-		}
-		set {
-			if (value < 0) {
-				_producedEnergy = 0.0f;
-			} else {
-				_producedEnergy = value;
-			}
-		}
-	}
+	public float ProducedEnergy { get; set; }
 	public float ForeignEnergy { get; set; }
-	public float Frequency { get { return 50 * (ProducedEnergy/ConsumedEnergy); } }
+	public float Frequency { get { return 50 * ((ProducedEnergy + ForeignEnergy) /ConsumedEnergy); } }
 	
 	// Use this for initialization
 	void Start () {
@@ -50,5 +30,8 @@ public abstract class Powergrid : MonoBehaviour {
 	public abstract void ProduceMoreEnergy();
 	public abstract void ProduceLessEnergy();
 	
+	protected float CurrentChange() {
+		return (Time.deltaTime * EnergyChange);
+	}
 	
 }

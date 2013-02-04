@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class PlayerPowergrid : Powergrid
 {
-	public float EnergyChange = 10.0f;
-	public int euro = 10;
-	
 	public NPCPowergrid windPowergrid;
 	public NPCPowergrid solarPowergrid;
 	public HydroPlant hydroPlant;
+	
+	public float Euro = 10;
 	
 	public override void ProduceLessEnergy ()
 	{
@@ -16,11 +15,16 @@ public class PlayerPowergrid : Powergrid
 	
 	public override void ProduceMoreEnergy ()
 	{
-		UpdatePlant (1);
+		UpdatePlant(1);
 	}
 	
 	private void UpdatePlant(int factor) {
-		float difference = (factor * Time.deltaTime * EnergyChange);
+		float difference = (CurrentChange() * factor);
+		
+		if ((ProducedEnergy + difference + ForeignEnergy) < 0.0f) {
+			return;
+		}
+		
 		ProducedEnergy = (ProducedEnergy + difference);
 		
 		if (ProducedEnergy > ConsumedEnergy) {
@@ -31,9 +35,8 @@ public class PlayerPowergrid : Powergrid
 	}
 	
 	//To decrease or increase the money by a certain amount.
-	public void changeAmountEuro(int amount){ 
-		euro += amount;
+	public void changeAmountEuro(float amount){ 
+		Euro += amount;
 	}
 	
 }
-

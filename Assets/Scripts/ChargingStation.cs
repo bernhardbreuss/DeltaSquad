@@ -7,7 +7,7 @@ public class ChargingStation: MonoBehaviour {
 	public PlayerPowergrid powergrid = null;
 	private Car _car = null;
 	public float rechargingRate = 1.0f;	
-	public int incomeCar = 5;
+	public float incomeCar = 5f;
 	
 	public bool IsFree { get; set; }
 	

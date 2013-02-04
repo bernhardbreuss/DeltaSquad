@@ -14,19 +14,35 @@ public class HUD : MonoBehaviour {
 	
 	public GUIStyle ButtonIncreaseOwn;
 	public GUIStyle ButtonDecreaseOwn;
+	public GUIStyle ButtonIncreaseWind;
+	public GUIStyle ButtonDecreaseWind;
+	public GUIStyle ButtonIncreaseSolar;
+	public GUIStyle ButtonDecreaseSolar;
 	
 	private GUIStyle ButtonIncreaseOwnDown;
 	private GUIStyle ButtonDecreaseOwnDown;
+	
+	public GUIStyle LabelEuro;
 		
 	public KeyCode IncreaseOwnKey = KeyCode.W;
 	public KeyCode DecreaseOwnKey = KeyCode.S;
+	public KeyCode IncreaseWindKey = KeyCode.Q;
+	public KeyCode DecreaseWindKey = KeyCode.A;
+	public KeyCode IncreaseSolarKey = KeyCode.O;
+	public KeyCode DecreaseSolarKey = KeyCode.L;
 	
 	public PlayerPowergrid PlayerPowergrid;
+	public NPCPowergrid WindPowergrid;
+	public NPCPowergrid SolarPowergrid;
 	
 	private int _buttonWidth;
 	private int _buttonHeight;
 	
 	private delegate void PressDelegate();
+	
+	private Buttons _ownButtons;
+	private Buttons _windButtons;
+	private Buttons _solarButtons;
 	
 	private class Buttons {
 		public GUIStyle increaseNormal;
@@ -37,11 +53,11 @@ public class HUD : MonoBehaviour {
 		public GUIStyle decreaseCurrent;
 	}
 	
-	private Buttons _ownButtons;
-	
 	// Use this for initialization
 	void Start () {
 		_ownButtons = CreateButtonStruct(ButtonIncreaseOwn, ButtonDecreaseOwn);
+		_windButtons = CreateButtonStruct(ButtonIncreaseWind, ButtonDecreaseWind);
+		_solarButtons = CreateButtonStruct(ButtonIncreaseSolar, ButtonDecreaseSolar);
 		
 		_buttonWidth = ButtonIncreaseOwn.normal.background.width;
 		_buttonHeight = ButtonIncreaseOwn.normal.background.height;
@@ -72,6 +88,12 @@ public class HUD : MonoBehaviour {
 	
 	void OnGUI() {
 		HzBarGroup(0, (Screen.height - HzBar.height), PlayerPowergrid.Frequency, _ownButtons, IncreaseOwnKey, DecreaseOwnKey, PlayerPowergrid.ProduceMoreEnergy, PlayerPowergrid.ProduceLessEnergy);
+		
+		HzBarGroup(0, 0, WindPowergrid.Frequency, _windButtons, IncreaseWindKey, DecreaseWindKey, WindPowergrid.ProduceMoreEnergy, WindPowergrid.ProduceLessEnergy);
+		
+		HzBarGroup((Screen.width - HzBar.width - (2 * _buttonWidth)), 0, SolarPowergrid.Frequency, _solarButtons, IncreaseSolarKey, DecreaseSolarKey, SolarPowergrid.ProduceMoreEnergy, SolarPowergrid.ProduceLessEnergy);
+		
+		GUI.Label(new Rect(0, 10, Screen.width, 30), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
 	}
 	
 	private void HzBarGroup(float x, float y, float hz, Buttons buttons, KeyCode increaseKey, KeyCode decreaseKey, PressDelegate increase, PressDelegate decrease) {
@@ -80,7 +102,6 @@ public class HUD : MonoBehaviour {
 		GUI.DrawTexture(new Rect(0, 0, HzBar.width, HzBar.height), HzBar);
 		float hzPos = GetHzCurrentPositionY(hz);
 		GUI.DrawTexture(new Rect(HzBarOffset.x, (hzPos - (HzCurrent.height / 2)), HzCurrent.width, HzCurrent.height), HzCurrent);
-		GUI.Label(new Rect(HzBar.width, (hzPos - 10), 60, 20), hz.ToString("#.#0") + "Hz");
 		
 		Rect buttonPos = new Rect(HzBar.width, (HzBar.height - _buttonHeight), _buttonWidth, _buttonHeight);
 		if (GUI.RepeatButton(buttonPos, "", buttons.increaseCurrent) || Input.GetKey(increaseKey)) {
@@ -97,6 +118,8 @@ public class HUD : MonoBehaviour {
 		} else {
 			buttons.decreaseCurrent = buttons.decreaseNormal;
 		}
+		
+		GUI.Label(new Rect(HzBar.width, (hzPos - 10), 60, 20), hz.ToString("0.#0") + "Hz");
 		
 		GUILayout.EndArea();
 	}
