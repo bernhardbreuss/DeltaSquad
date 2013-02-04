@@ -4,15 +4,16 @@ using System.Collections;
 public abstract class Powergrid : MonoBehaviour {
 	
 	
-	
-	public int ConsumedEnergy { get; set; }
-	public int ProducedEnergy { get; set; }
-	public int ForeignEnergy { get; set; }
+	public float baseEnergy;
+	public float ConsumedEnergy { get; set; }
+	public float ProducedEnergy { get; set; }
+	public float ForeignEnergy { get; set; }
 	public float Frequency { get { return 50 * (ProducedEnergy/ConsumedEnergy); } }
 	
 	// Use this for initialization
 	void Start () {
-	
+		ConsumedEnergy = baseEnergy;
+		ProducedEnergy = baseEnergy;
 	}
 	
 	// Update is called once per frame
