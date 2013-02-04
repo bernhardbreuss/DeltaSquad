@@ -21,6 +21,8 @@ public class HUD : MonoBehaviour {
 	
 	private GUIStyle ButtonIncreaseOwnDown;
 	private GUIStyle ButtonDecreaseOwnDown;
+	
+	public GUIStyle LabelEuro;
 		
 	public KeyCode IncreaseOwnKey = KeyCode.W;
 	public KeyCode DecreaseOwnKey = KeyCode.S;
@@ -90,6 +92,8 @@ public class HUD : MonoBehaviour {
 		HzBarGroup(0, 0, WindPowergrid.Frequency, _windButtons, IncreaseWindKey, DecreaseWindKey, WindPowergrid.ProduceMoreEnergy, WindPowergrid.ProduceLessEnergy);
 		
 		HzBarGroup((Screen.width - HzBar.width - (2 * _buttonWidth)), 0, SolarPowergrid.Frequency, _solarButtons, IncreaseSolarKey, DecreaseSolarKey, SolarPowergrid.ProduceMoreEnergy, SolarPowergrid.ProduceLessEnergy);
+		
+		GUI.Label(new Rect(0, 10, Screen.width, 30), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
 	}
 	
 	private void HzBarGroup(float x, float y, float hz, Buttons buttons, KeyCode increaseKey, KeyCode decreaseKey, PressDelegate increase, PressDelegate decrease) {

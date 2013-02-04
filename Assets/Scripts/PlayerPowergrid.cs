@@ -6,7 +6,7 @@ public class PlayerPowergrid : Powergrid
 	public NPCPowergrid solarPowergrid;
 	public HydroPlant hydroPlant;
 	
-	public int Euro = 10;
+	public float Euro = 10;
 	
 	public override void ProduceLessEnergy ()
 	{
@@ -35,7 +35,7 @@ public class PlayerPowergrid : Powergrid
 	}
 	
 	//To decrease or increase the money by a certain amount.
-	public void changeAmountEuro(int amount){ 
+	public void changeAmountEuro(float amount){ 
 		Euro += amount;
 	}
 	
