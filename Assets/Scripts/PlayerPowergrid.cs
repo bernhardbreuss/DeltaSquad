@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class PlayerPowergrid : Powergrid
 {
-	public float EnergyChange = 10.0f;
-	
 	public NPCPowergrid windPowergrid;
 	public NPCPowergrid solarPowergrid;
 	public HydroPlant hydroPlant;
@@ -16,11 +14,16 @@ public class PlayerPowergrid : Powergrid
 	
 	public override void ProduceMoreEnergy ()
 	{
-		UpdatePlant (1);
+		UpdatePlant(1);
 	}
 	
 	private void UpdatePlant(int factor) {
-		float difference = (factor * Time.deltaTime * EnergyChange);
+		float difference = (CurrentChange() * factor);
+		
+		if ((ProducedEnergy + difference + ForeignEnergy) < 0.0f) {
+			return;
+		}
+		
 		ProducedEnergy = (ProducedEnergy + difference);
 		
 		if (ProducedEnergy > ConsumedEnergy) {
