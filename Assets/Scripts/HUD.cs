@@ -146,12 +146,4 @@ public class HUD : MonoBehaviour {
 		
 		return (HzBarOffset.y + posY);
 	}
-	
-	private void IncreaseOwn() {
-			// TODO: call PlayerPowergrid.ProduceMoreEnergy()
-	}
-	
-	private void DecreaseOwn() {
-			// TODO: call PlayerPowergrid.ProduceLessEnergy()
-	}
 }
