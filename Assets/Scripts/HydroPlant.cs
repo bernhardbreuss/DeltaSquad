@@ -38,7 +38,11 @@ public class HydroPlant : MonoBehaviour {
 		if (powergrid.ProducedEnergy < powergrid.ConsumedEnergy) {
 			Pump();
 		} else {
-			GenerateEnergy();
+			if(mountainReservoir.Water>0){
+				GenerateEnergy();
+			}else{
+				powergrid.ProducedEnergy=powergrid.baseEnergy;
+			}
 		}
 	}
 	
@@ -61,8 +65,10 @@ public class HydroPlant : MonoBehaviour {
 		
 		_consumedEnergy = powergrid.baseEnergy - powergrid.ProducedEnergy;
 		float waterFlow = Time.deltaTime * _consumedEnergy * efficency;
-		valleyReservoir.Water -= waterFlow;
-		mountainReservoir.Water += waterFlow;
+		if(valleyReservoir.Water>0){
+			valleyReservoir.Water -= waterFlow;
+			mountainReservoir.Water += waterFlow;
+		}
 	}
 	
 
