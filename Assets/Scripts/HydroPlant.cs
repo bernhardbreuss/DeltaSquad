@@ -36,7 +36,11 @@ public class HydroPlant : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (powergrid.ProducedEnergy < powergrid.ConsumedEnergy) {
-			Pump();
+			if (valleyReservoir.Water>0.0f) {
+				Pump();
+			} else {
+				powergrid.ProducedEnergy=powergrid.baseEnergy;
+			}
 		} else {
 			if(mountainReservoir.Water>0){
 				GenerateEnergy();
@@ -52,18 +56,14 @@ public class HydroPlant : MonoBehaviour {
 	}
 	
 	public void Pump() {
-		
 		_consumedEnergy = powergrid.baseEnergy - powergrid.ProducedEnergy;
 		float waterFlow = Time.deltaTime * _consumedEnergy * efficency;
-		if(valleyReservoir.Water>0){
-			valleyReservoir.Water -= waterFlow;
-			mountainReservoir.Water += waterFlow;
-		}
+		valleyReservoir.Water -= waterFlow;
+		mountainReservoir.Water += waterFlow;
 	}
 	
 
 	public void GenerateEnergy() {
-		
 		_producedEnergy = powergrid.ProducedEnergy - powergrid.baseEnergy;
 		float waterFlow = Time.deltaTime * _producedEnergy;
 		valleyReservoir.Water += waterFlow;
