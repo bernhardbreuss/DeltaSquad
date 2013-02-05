@@ -89,22 +89,18 @@ public class HUD : MonoBehaviour {
 	
 	void OnGUI() {
 		float hzBarWidth = (HzBar.width + (2 * _buttonWidth));
+		float ownBarX = ((Screen.width - hzBarWidth) / 2);
+		float ownBarY = (Screen.height - HzBar.height);
 		
-		HzBarGroup(((Screen.width - hzBarWidth) / 2), (Screen.height - HzBar.height), PlayerPowergrid.Frequency, _ownButtons, IncreaseOwnKey, DecreaseOwnKey, PlayerPowergrid.ProduceMoreEnergy, PlayerPowergrid.ProduceLessEnergy);
+		HzBarGroup(ownBarX, ownBarY, PlayerPowergrid.Frequency, _ownButtons, IncreaseOwnKey, DecreaseOwnKey, PlayerPowergrid.ProduceMoreEnergy, PlayerPowergrid.ProduceLessEnergy);
 		
 		HzBarGroup(0, 0, WindPowergrid.Frequency, _windButtons, IncreaseWindKey, DecreaseWindKey, WindPowergrid.ProduceMoreEnergy, WindPowergrid.ProduceLessEnergy);
 		
 		HzBarGroup((Screen.width - hzBarWidth), 0, SolarPowergrid.Frequency, _solarButtons, IncreaseSolarKey, DecreaseSolarKey, SolarPowergrid.ProduceMoreEnergy, SolarPowergrid.ProduceLessEnergy);
-		
-		GUI.Label(new Rect(0, 10, Screen.width, 20), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
-		
-
-		GUI.Label(new Rect(0, 10, Screen.width, 30), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
-		
-		GUI.Label(new Rect(0, 0, 30, 30), PlayerPowergrid.hydroPlant.mountainReservoir.Water.ToString("0.##0"));
-		GUI.Label(new Rect(30, 0, 30, 30), PlayerPowergrid.hydroPlant.valleyReservoir.Water.ToString ("0.##0"));
-
-		GUI.Label(new Rect(0, 30, Screen.width, 20), PlayerPowergrid.hydroPlant.Health.ToString("0 HP"), LabelHp);
+				
+		GUI.Label(new Rect(ownBarX + hzBarWidth - _buttonWidth, ownBarY, 50, 30), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
+				
+		GUI.Label(new Rect(ownBarX + hzBarWidth - _buttonWidth, ownBarY + 30, Screen.width, 20), PlayerPowergrid.hydroPlant.Health.ToString("0 HP"), LabelHp);
 
 	}
 	
