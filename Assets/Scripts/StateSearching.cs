@@ -19,7 +19,7 @@ public class StateSearching:AbstractCar
 	public override void Update()
 	{
 		//_car.transform
-		_car.transform.Translate(carSpeed * Time.deltaTime, 0f, 0f);
+		_car.transform.Translate(0f, 0f, -carSpeed * Time.deltaTime);
 		if (_car.transform.position.x >= targetPos.x)
 		{							
 			targetStation.GetComponent<ChargingStation>().sendTag(_car.gameObject.tag);

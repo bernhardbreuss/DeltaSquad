@@ -10,7 +10,7 @@ public class StateLeaving:AbstractCar
 	
 	public override void Update()
 	{
-		_car.transform.Translate(carSpeed * Time.deltaTime, 0f, 0f);
+		_car.transform.Translate(0f, 0f, -carSpeed * Time.deltaTime);
 	}
 }
 
