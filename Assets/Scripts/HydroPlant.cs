@@ -27,14 +27,10 @@ public class HydroPlant : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-<<<<<<< HEAD
 		
 		mountainReservoir.Water = 50;
 		valleyReservoir.Water = 50;
-		
-=======
 		Health = InitialHealth;
->>>>>>> 1ccf952a33b2cd3fcb556b70b463003d0b454f11
 	}
 	
 	// Update is called once per frame
@@ -69,18 +65,14 @@ public class HydroPlant : MonoBehaviour {
 		mountainReservoir.Water += waterFlow;
 	}
 	
-<<<<<<< HEAD
+
 	public void GenerateEnergy() {
 		
 		_producedEnergy = powergrid.ProducedEnergy - powergrid.baseEnergy;
 		float waterFlow = Time.deltaTime * _producedEnergy;
 		valleyReservoir.Water += waterFlow;
 		mountainReservoir.Water -= waterFlow;
-=======
-	public void GenerateEnergy() 
-	{
-		
->>>>>>> 1ccf952a33b2cd3fcb556b70b463003d0b454f11
 	}
 	
 }
+	

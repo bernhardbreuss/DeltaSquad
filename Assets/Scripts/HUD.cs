@@ -98,14 +98,14 @@ public class HUD : MonoBehaviour {
 		
 		GUI.Label(new Rect(0, 10, Screen.width, 20), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
 		
-<<<<<<< HEAD
+
 		GUI.Label(new Rect(0, 10, Screen.width, 30), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
 		
 		GUI.Label(new Rect(0, 0, 30, 30), PlayerPowergrid.hydroPlant.mountainReservoir.Water.ToString("0.##0"));
 		GUI.Label(new Rect(30, 0, 30, 30), PlayerPowergrid.hydroPlant.valleyReservoir.Water.ToString ("0.##0"));
-=======
+
 		GUI.Label(new Rect(0, 30, Screen.width, 20), PlayerPowergrid.hydroPlant.Health.ToString("0 HP"), LabelHp);
->>>>>>> 1ccf952a33b2cd3fcb556b70b463003d0b454f11
+
 	}
 	
 	private void HzBarGroup(float x, float y, float hz, Buttons buttons, KeyCode increaseKey, KeyCode decreaseKey, PressDelegate increase, PressDelegate decrease) {
