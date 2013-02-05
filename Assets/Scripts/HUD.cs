@@ -94,6 +94,9 @@ public class HUD : MonoBehaviour {
 		HzBarGroup((Screen.width - HzBar.width - (2 * _buttonWidth)), 0, SolarPowergrid.Frequency, _solarButtons, IncreaseSolarKey, DecreaseSolarKey, SolarPowergrid.ProduceMoreEnergy, SolarPowergrid.ProduceLessEnergy);
 		
 		GUI.Label(new Rect(0, 10, Screen.width, 30), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
+		
+		GUI.Label(new Rect(0, 0, 30, 30), PlayerPowergrid.hydroPlant.mountainReservoir.Water.ToString("0.##0"));
+		GUI.Label(new Rect(30, 0, 30, 30), PlayerPowergrid.hydroPlant.valleyReservoir.Water.ToString ("0.##0"));
 	}
 	
 	private void HzBarGroup(float x, float y, float hz, Buttons buttons, KeyCode increaseKey, KeyCode decreaseKey, PressDelegate increase, PressDelegate decrease) {
