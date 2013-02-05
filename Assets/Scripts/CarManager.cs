@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class CarManager: MonoBehaviour {	
 	
-	private WaveManager _waveManager;	
+	public WaveManager waveManager;	
 	
 	void Start () {
 		

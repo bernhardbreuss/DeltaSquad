@@ -20,10 +20,9 @@ public class StateSearching:AbstractCar
 	{
 		//_car.transform
 		_car.transform.Translate(0f, 0f, -carSpeed * Time.deltaTime);
-		if (_car.transform.position.x >= targetPos.x)
+		if (_car.transform.position.z <= targetPos.z)
 		{							
-			targetStation.GetComponent<ChargingStation>().sendTag(_car.gameObject.tag);
-			
+			targetStation.GetComponent<ChargingStation>().sendTag(_car.gameObject.tag);			
 		}
 	}
 }
