@@ -3,9 +3,12 @@ using System.Collections;
 
 public class HydroPlant : MonoBehaviour {
 		
-	private float _maxHealth = 100;
-	private float _minHealth = 0;	
-	private float _currentHealth = 100;
+	public float MaxHealth = 100.0f;
+	public float MinHealth = 0.0f;
+	public float InitialHealth = 100.0f;
+	
+	
+	public float Health { get; set; }
 	
 	private enum State {
 		Idle,
@@ -20,7 +23,7 @@ public class HydroPlant : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-	
+		Health = InitialHealth;
 	}
 	
 	// Update is called once per frame
@@ -34,13 +37,13 @@ public class HydroPlant : MonoBehaviour {
 		float lowerLimit = 0;
 		float damage = 1;
 		
-		if(_minHealth > 0 && frequency > upperLimit && frequency < lowerLimit)
-			_currentHealth -= damage;		
+		if(MinHealth > 0 && frequency > upperLimit && frequency < lowerLimit)
+			Health -= damage;		
 	}
 	
 	public void Heal() 
 	{
-		_currentHealth = _maxHealth;		
+		Health = MaxHealth;		
 	}
 	
 	public void Pump() {
