@@ -21,27 +21,23 @@ public class ChargingStation: MonoBehaviour {
 	void Update () {
 		
 	}
-	public void sendTag(string carName){
-		Debug.Log("Received tag");
-		GameObject car = GameObject.FindWithTag(carName);	
-		Car newCar = car.GetComponent<Car>();
-		_car = newCar;	
-		_car.ChangeState(new StateFueling(_car));
-		StartCoroutine(StartCharging());
+	
+	public void receiveCar(Car newCar){
+		Debug.Log("Received tag");		
+		IsFree = false;	
+		_car = newCar;			
 	}
 	
-	public IEnumerator StartCharging() {
+	public void StartCharging() {
 		
 		powergrid.ConsumedEnergy += rechargingRate;
-		powergrid.changeAmountEuro(incomeCar);
-		IsFree = false;						
-		yield return new WaitForSeconds(chargeTime);		
-		ChargingFinished();		
+		powergrid.changeAmountEuro(incomeCar);			
+		StartCoroutine(ChargingFinished());		
 	}
 	
-	public void ChargingFinished() {
-		powergrid.ConsumedEnergy -= rechargingRate;
-		
+	public IEnumerator ChargingFinished() {
+		yield return new WaitForSeconds(chargeTime);
+		powergrid.ConsumedEnergy -= rechargingRate;		
 		_car.ChangeState(new StateLeaving(_car));
 		_car = null;
 		IsFree = true; 

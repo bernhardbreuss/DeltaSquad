@@ -13,7 +13,8 @@ public class Car: MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {			
-		_state = new StateSearching(this);				
+		//_state = new StateSearching(this);	
+		ChangeState(new StateSearching(this));
 	}	
 	
 	// Update is called once per frame
@@ -23,6 +24,7 @@ public class Car: MonoBehaviour {
 	
 	public void ChangeState(ICarState newState) {
 		_state = newState;
+		_state.stateStarted();
 	}
 	
 	//this function is used to find where the car should move to
@@ -30,4 +32,5 @@ public class Car: MonoBehaviour {
 	{
 		
 	}	
+	
 }

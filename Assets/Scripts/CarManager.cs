@@ -4,12 +4,16 @@ using System.Collections.Generic;
 public class CarManager: MonoBehaviour {	
 	
 	public WaveManager waveManager;	
+	public Transform car;
+	public Vector3 spawnPoint = new Vector3(368.3f,72.5f,1413.6f);
 	
 	void Start () {
 		
 	}
 	
 	public Car SpawnCar() {
+		Instantiate(car, spawnPoint, Quaternion.identity);
+		Debug.Log("Car Created");
 		return null;
 	}
 	
