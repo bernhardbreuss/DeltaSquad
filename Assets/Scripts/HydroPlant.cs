@@ -46,16 +46,6 @@ public class HydroPlant : MonoBehaviour {
 		}
 	}
 	
-	public void TakeDamage(float frequency) 
-	{
-		float upperLimit = 10;
-		float lowerLimit = 0;
-		float damage = 1;
-		
-		if(MinHealth > 0 && frequency > upperLimit && frequency < lowerLimit)
-			Health -= damage;		
-	}
-	
 	public void Heal() 
 	{
 		Health = MaxHealth;		

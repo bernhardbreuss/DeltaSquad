@@ -7,6 +7,8 @@ public class PlayerPowergrid : Powergrid
 	public HydroPlant hydroPlant;
 	
 	public float Euro = 10;
+	public float FrequencyTolerance = 1.0f;
+	public float DamageFactor = 3.0f;
 	
 	public override void ProduceLessEnergy ()
 	{
@@ -31,6 +33,16 @@ public class PlayerPowergrid : Powergrid
 	//To decrease or increase the money by a certain amount.
 	public void changeAmountEuro(float amount){ 
 		Euro += amount;
+	}
+	
+	protected override void Update ()
+	{
+		base.Update ();
+		
+		float tempFrequency = Mathf.Abs(50.0f - Frequency);
+		if (Mathf.Abs(50.0f - Frequency) > FrequencyTolerance) {
+			hydroPlant.Health -= (tempFrequency - FrequencyTolerance) * Time.deltaTime * DamageFactor;
+		}
 	}
 	
 }
