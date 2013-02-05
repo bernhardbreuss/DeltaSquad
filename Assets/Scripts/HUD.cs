@@ -98,7 +98,14 @@ public class HUD : MonoBehaviour {
 		
 		GUI.Label(new Rect(0, 10, Screen.width, 20), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
 		
+
+		GUI.Label(new Rect(0, 10, Screen.width, 30), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
+		
+		GUI.Label(new Rect(0, 0, 30, 30), PlayerPowergrid.hydroPlant.mountainReservoir.Water.ToString("0.##0"));
+		GUI.Label(new Rect(30, 0, 30, 30), PlayerPowergrid.hydroPlant.valleyReservoir.Water.ToString ("0.##0"));
+
 		GUI.Label(new Rect(0, 30, Screen.width, 20), PlayerPowergrid.hydroPlant.Health.ToString("0 HP"), LabelHp);
+
 	}
 	
 	private void HzBarGroup(float x, float y, float hz, Buttons buttons, KeyCode increaseKey, KeyCode decreaseKey, PressDelegate increase, PressDelegate decrease) {
@@ -145,13 +152,5 @@ public class HUD : MonoBehaviour {
 		posY *= HzBarSize.y;
 		
 		return (HzBarOffset.y + posY);
-	}
-	
-	private void IncreaseOwn() {
-			// TODO: call PlayerPowergrid.ProduceMoreEnergy()
-	}
-	
-	private void DecreaseOwn() {
-			// TODO: call PlayerPowergrid.ProduceLessEnergy()
 	}
 }

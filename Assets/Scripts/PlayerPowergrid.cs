@@ -26,12 +26,6 @@ public class PlayerPowergrid : Powergrid
 		}
 		
 		ProducedEnergy = (ProducedEnergy + difference);
-		
-		if (ProducedEnergy > ConsumedEnergy) {
-			hydroPlant.Pump();
-		} else {
-			hydroPlant.GenerateEnergy();
-		}
 	}
 	
 	//To decrease or increase the money by a certain amount.
