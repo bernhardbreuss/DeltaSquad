@@ -23,6 +23,7 @@ public class HUD : MonoBehaviour {
 	private GUIStyle ButtonDecreaseOwnDown;
 	
 	public GUIStyle LabelEuro;
+	public GUIStyle LabelHp;
 		
 	public KeyCode IncreaseOwnKey = KeyCode.W;
 	public KeyCode DecreaseOwnKey = KeyCode.S;
@@ -87,16 +88,24 @@ public class HUD : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		HzBarGroup(0, (Screen.height - HzBar.height), PlayerPowergrid.Frequency, _ownButtons, IncreaseOwnKey, DecreaseOwnKey, PlayerPowergrid.ProduceMoreEnergy, PlayerPowergrid.ProduceLessEnergy);
+		float hzBarWidth = (HzBar.width + (2 * _buttonWidth));
+		
+		HzBarGroup(((Screen.width - hzBarWidth) / 2), (Screen.height - HzBar.height), PlayerPowergrid.Frequency, _ownButtons, IncreaseOwnKey, DecreaseOwnKey, PlayerPowergrid.ProduceMoreEnergy, PlayerPowergrid.ProduceLessEnergy);
 		
 		HzBarGroup(0, 0, WindPowergrid.Frequency, _windButtons, IncreaseWindKey, DecreaseWindKey, WindPowergrid.ProduceMoreEnergy, WindPowergrid.ProduceLessEnergy);
 		
-		HzBarGroup((Screen.width - HzBar.width - (2 * _buttonWidth)), 0, SolarPowergrid.Frequency, _solarButtons, IncreaseSolarKey, DecreaseSolarKey, SolarPowergrid.ProduceMoreEnergy, SolarPowergrid.ProduceLessEnergy);
+		HzBarGroup((Screen.width - hzBarWidth), 0, SolarPowergrid.Frequency, _solarButtons, IncreaseSolarKey, DecreaseSolarKey, SolarPowergrid.ProduceMoreEnergy, SolarPowergrid.ProduceLessEnergy);
 		
+		GUI.Label(new Rect(0, 10, Screen.width, 20), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
+		
+<<<<<<< HEAD
 		GUI.Label(new Rect(0, 10, Screen.width, 30), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
 		
 		GUI.Label(new Rect(0, 0, 30, 30), PlayerPowergrid.hydroPlant.mountainReservoir.Water.ToString("0.##0"));
 		GUI.Label(new Rect(30, 0, 30, 30), PlayerPowergrid.hydroPlant.valleyReservoir.Water.ToString ("0.##0"));
+=======
+		GUI.Label(new Rect(0, 30, Screen.width, 20), PlayerPowergrid.hydroPlant.Health.ToString("0 HP"), LabelHp);
+>>>>>>> 1ccf952a33b2cd3fcb556b70b463003d0b454f11
 	}
 	
 	private void HzBarGroup(float x, float y, float hz, Buttons buttons, KeyCode increaseKey, KeyCode decreaseKey, PressDelegate increase, PressDelegate decrease) {
@@ -143,13 +152,5 @@ public class HUD : MonoBehaviour {
 		posY *= HzBarSize.y;
 		
 		return (HzBarOffset.y + posY);
-	}
-	
-	private void IncreaseOwn() {
-			// TODO: call PlayerPowergrid.ProduceMoreEnergy()
-	}
-	
-	private void DecreaseOwn() {
-			// TODO: call PlayerPowergrid.ProduceLessEnergy()
 	}
 }

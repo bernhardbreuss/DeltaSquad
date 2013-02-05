@@ -2,6 +2,13 @@ using UnityEngine;
 using System.Collections;
 
 public class HydroPlant : MonoBehaviour {
+		
+	public float MaxHealth = 100.0f;
+	public float MinHealth = 0.0f;
+	public float InitialHealth = 100.0f;
+	
+	
+	public float Health { get; set; }
 	
 	private enum State {
 		Idle,
@@ -20,10 +27,14 @@ public class HydroPlant : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+<<<<<<< HEAD
 		
 		mountainReservoir.Water = 50;
 		valleyReservoir.Water = 50;
 		
+=======
+		Health = InitialHealth;
+>>>>>>> 1ccf952a33b2cd3fcb556b70b463003d0b454f11
 	}
 	
 	// Update is called once per frame
@@ -35,7 +46,19 @@ public class HydroPlant : MonoBehaviour {
 		}
 	}
 	
-	public void TakeDamage(float frequency) {
+	public void TakeDamage(float frequency) 
+	{
+		float upperLimit = 10;
+		float lowerLimit = 0;
+		float damage = 1;
+		
+		if(MinHealth > 0 && frequency > upperLimit && frequency < lowerLimit)
+			Health -= damage;		
+	}
+	
+	public void Heal() 
+	{
+		Health = MaxHealth;		
 	}
 	
 	public void Pump() {
@@ -46,12 +69,18 @@ public class HydroPlant : MonoBehaviour {
 		mountainReservoir.Water += waterFlow;
 	}
 	
+<<<<<<< HEAD
 	public void GenerateEnergy() {
 		
 		_producedEnergy = powergrid.ProducedEnergy - powergrid.baseEnergy;
 		float waterFlow = Time.deltaTime * _producedEnergy;
 		valleyReservoir.Water += waterFlow;
 		mountainReservoir.Water -= waterFlow;
+=======
+	public void GenerateEnergy() 
+	{
+		
+>>>>>>> 1ccf952a33b2cd3fcb556b70b463003d0b454f11
 	}
 	
 }

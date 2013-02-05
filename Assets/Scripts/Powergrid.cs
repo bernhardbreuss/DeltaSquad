@@ -15,15 +15,16 @@ public abstract class Powergrid : MonoBehaviour {
 	public float ProducedEnergy { get; set; }
 	public float ForeignEnergy { get; set; }
 	public float Frequency { get { return 50 * ((ProducedEnergy + ForeignEnergy) /ConsumedEnergy); } }
+	public float OwnFrequency { get { return 50 * (ProducedEnergy / ConsumedEnergy); } }
 	
 	// Use this for initialization
-	void Start () {
+	protected virtual void Start () {
 		ConsumedEnergy = baseEnergy;
 		ProducedEnergy = baseEnergy;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected virtual void Update () {
 	
 	}
 	
