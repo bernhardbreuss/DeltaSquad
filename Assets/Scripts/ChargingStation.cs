@@ -14,7 +14,7 @@ public class ChargingStation: MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		IsFree = true;
-		//gameObject.tag = "station1";
+		gameObject.tag = "station1";
 	}
 	
 	// Update is called once per frame
