@@ -24,6 +24,7 @@ public class HUD : MonoBehaviour {
 	
 	public GUIStyle LabelEuro;
 	public GUIStyle LabelHp;
+	public GUIStyle LabelForeignPrice;
 		
 	public KeyCode IncreaseOwnKey = KeyCode.W;
 	public KeyCode DecreaseOwnKey = KeyCode.S;
@@ -38,9 +39,7 @@ public class HUD : MonoBehaviour {
 	
 	private int _buttonWidth;
 	private int _buttonHeight;
-	
-	private delegate void PressDelegate();
-	
+		
 	private Buttons _ownButtons;
 	private Buttons _windButtons;
 	private Buttons _solarButtons;
@@ -92,11 +91,11 @@ public class HUD : MonoBehaviour {
 		float ownBarX = ((Screen.width - hzBarWidth) / 2);
 		float ownBarY = (Screen.height - HzBar.height);
 		
-		HzBarGroup(ownBarX, ownBarY, PlayerPowergrid.Frequency, _ownButtons, IncreaseOwnKey, DecreaseOwnKey, PlayerPowergrid.ProduceMoreEnergy, PlayerPowergrid.ProduceLessEnergy);
+		HzBarGroup(ownBarX, ownBarY, PlayerPowergrid.Frequency, _ownButtons, IncreaseOwnKey, DecreaseOwnKey, PlayerPowergrid);
 		
-		HzBarGroup(0, 0, WindPowergrid.Frequency, _windButtons, IncreaseWindKey, DecreaseWindKey, WindPowergrid.ProduceMoreEnergy, WindPowergrid.ProduceLessEnergy);
+		HzBarGroup(0, 0, WindPowergrid.Frequency, _windButtons, IncreaseWindKey, DecreaseWindKey, WindPowergrid);
 		
-		HzBarGroup((Screen.width - hzBarWidth), 0, SolarPowergrid.Frequency, _solarButtons, IncreaseSolarKey, DecreaseSolarKey, SolarPowergrid.ProduceMoreEnergy, SolarPowergrid.ProduceLessEnergy);
+		HzBarGroup((Screen.width - hzBarWidth), 0, SolarPowergrid.Frequency, _solarButtons, IncreaseSolarKey, DecreaseSolarKey, SolarPowergrid);
 				
 		GUI.Label(new Rect(ownBarX + hzBarWidth - _buttonWidth, ownBarY, 50, 30), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
 				
@@ -104,7 +103,7 @@ public class HUD : MonoBehaviour {
 
 	}
 	
-	private void HzBarGroup(float x, float y, float hz, Buttons buttons, KeyCode increaseKey, KeyCode decreaseKey, PressDelegate increase, PressDelegate decrease) {
+	private void HzBarGroup(float x, float y, float hz, Buttons buttons, KeyCode increaseKey, KeyCode decreaseKey, Powergrid powergrid) {
 		GUILayout.BeginArea(new Rect(x, y, Screen.width / 2, Screen.height / 2));
 		
 		GUI.DrawTexture(new Rect(0, 0, HzBar.width, HzBar.height), HzBar);
@@ -114,7 +113,7 @@ public class HUD : MonoBehaviour {
 		Rect buttonPos = new Rect(HzBar.width, (HzBar.height - _buttonHeight), _buttonWidth, _buttonHeight);
 		if (GUI.RepeatButton(buttonPos, "", buttons.increaseCurrent) || Input.GetKey(increaseKey)) {
 			buttons.increaseCurrent = buttons.increaseActive;
-			increase();
+			powergrid.ProduceMoreEnergy();
 		} else {
 			buttons.increaseCurrent = buttons.increaseNormal;
 		}
@@ -122,12 +121,16 @@ public class HUD : MonoBehaviour {
 		buttonPos.x += _buttonWidth;
 		if (GUI.RepeatButton(buttonPos, "", buttons.decreaseCurrent) || Input.GetKey(decreaseKey)) {
 			buttons.decreaseCurrent = buttons.decreaseActive;
-			decrease();
+			powergrid.ProduceLessEnergy();
 		} else {
 			buttons.decreaseCurrent = buttons.decreaseNormal;
 		}
 		
 		GUI.Label(new Rect(HzBar.width, (hzPos - 10), 60, 20), hz.ToString("0.#0") + "Hz");
+		
+		if (powergrid is NPCPowergrid) {
+			GUI.Label(new Rect(HzBar.width, 0, (2 * _buttonWidth), 20), ((NPCPowergrid)powergrid).CurrentPrice().ToString("0.#0 $"), LabelForeignPrice);
+		}
 		
 		GUILayout.EndArea();
 	}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 using UnityEngine;
 
 public class NPCPowergrid : Powergrid
@@ -68,7 +69,6 @@ public class NPCPowergrid : Powergrid
 	protected override void Start ()
 	{
 		base.Start ();
-		ProducedEnergy -= 20f;
 	}
 	
 	protected override void Update ()
@@ -79,16 +79,7 @@ public class NPCPowergrid : Powergrid
 			return;
 		}
 		
-		float money = 0.0f;
-		
-		if (ForeignEnergy  < 0.0f) {
-			money = ((MaxHz - OwnFrequency) * -MoneyFactor);
-		} else if (ForeignEnergy > 0.0f) {
-			money = ((50.0f - OwnFrequency) * MoneyFactor);
-		}
-		
-		money -= TradeFee;		
-		money *= Time.deltaTime;
+		float money = CurrentPrice () * Time.deltaTime;
 		
 		if ((PlayerPowergrid.Euro + money) < 0.0f) {
 			PlayerPowergrid.ForeignEnergy += ForeignEnergy;
@@ -98,9 +89,24 @@ public class NPCPowergrid : Powergrid
 		}
 	}
 	
+	public float CurrentPrice() {
+		float money = 0.0f;
+		
+		if (ConsumedEnergy < ProducedEnergy) {
+			// NPC is selling energy
+			money = ((MaxHz - OwnFrequency) * -MoneyFactor);
+		} else if (ConsumedEnergy > ProducedEnergy) {
+			// NPC is buying energy
+			money = ((50.0f - OwnFrequency) * MoneyFactor);
+		}
+		
+		money -= TradeFee;
+		
+		return money;
+	}
+	
 	protected override void ResetGrid(){
 		base.ResetGrid();
 		weather.Reset();
 	}
 }
-
