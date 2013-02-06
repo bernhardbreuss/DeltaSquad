@@ -103,7 +103,10 @@ public class HUD : MonoBehaviour {
 		GUI.Label(new Rect(ownBarX + hzBarWidth - _buttonWidth, ownBarY, 50, 30), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
 				
 		GUI.Label(new Rect(ownBarX + hzBarWidth - _buttonWidth, ownBarY + 30, Screen.width, 20), PlayerPowergrid.hydroPlant.Health.ToString("0 HP"), LabelHp);
-
+		
+		if (GUI.Button(new Rect((ownBarX + hzBarWidth), (Screen.height - _buttonHeight), 50, _buttonHeight), "Reset")) {
+			PlayerPowergrid.ResetGrid();
+		}
 	}
 	
 	private void HzBarGroup(float x, float y, Buttons buttons, KeyCode increaseKey, KeyCode decreaseKey, Powergrid powergrid) {

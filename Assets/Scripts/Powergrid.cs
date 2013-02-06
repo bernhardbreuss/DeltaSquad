@@ -50,7 +50,7 @@ public abstract class Powergrid : MonoBehaviour
 		return (Time.deltaTime * EnergyChange);
 	}
 	
-	protected virtual void ResetGrid ()
+	public virtual void ResetGrid ()
 	{
 		ConsumedEnergy = baseEnergy;
 		ProducedEnergy = baseEnergy;

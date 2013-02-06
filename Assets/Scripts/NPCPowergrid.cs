@@ -104,7 +104,7 @@ public class NPCPowergrid : Powergrid
 		return money;
 	}
 	
-	protected override void ResetGrid(){
+	public override void ResetGrid(){
 		base.ResetGrid();
 		weather.Reset();
 	}
