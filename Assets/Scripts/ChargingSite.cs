@@ -51,8 +51,7 @@ public class ChargingSite: MonoBehaviour {
 	{
 		powergrid.changeAmountEuro(-chargeStationCost);
 		Instantiate(chargingStation, transform.position, transform.rotation);
-		
-				
+		chargingStation.GetComponent<ChargingStation>().SetPowergrid(powergrid);				
 		
 	}
 

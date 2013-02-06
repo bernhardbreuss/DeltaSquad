@@ -22,6 +22,11 @@ public class ChargingStation: MonoBehaviour {
 		
 	}
 	
+	public void SetPowergrid(PlayerPowergrid powrgrid)
+	{
+		powergrid = powrgrid;
+	}
+	
 	public void receiveCar(Car newCar){
 		Debug.Log("Received tag");		
 		IsFree = false;	
