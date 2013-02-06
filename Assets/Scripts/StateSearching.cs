@@ -4,6 +4,7 @@ public class StateSearching:AbstractCar
 {
 	
 	private Vector3 targetPos;
+	private float turningPos = 350.0f;
 	GameObject targetStation;	
 	
 	public StateSearching(Car car):base(car)
@@ -11,10 +12,18 @@ public class StateSearching:AbstractCar
 	}		
 	
 	public override void Update()
-	{
-		//_car.transform
+	{		
 		_car.transform.Translate(0f, 0f, -carSpeed * Time.deltaTime);
-		if (_car.transform.position.z <= targetPos.z)
+		//If we do not already have a station to fuel at, find one
+		if (_car.transform.position.z <= turningPos && !carLooped && !isFueled)
+		{
+			_car.ChangeState(new StateTurning(_car));
+		}
+		else if(targetStation == null)
+		{
+			searchForStation();
+		}
+		else if (_car.transform.position.z <= targetPos.z)
 		{							
 			_car.ChangeState(new StateFueling(_car));	
 			targetStation.GetComponent<ChargingStation>().StartCharging();
@@ -23,25 +32,41 @@ public class StateSearching:AbstractCar
 	
 	public override void stateStarted()
 	{
+		searchForStation();
+	} 
+	
+	public void searchForStation()
+	{
 		Debug.Log("State Searching");
 		//find all charging station objects.
 		GameObject[] tempStations = GameObject.FindGameObjectsWithTag("station1");
+		
+		float carPos = _car.transform.position.z;
+		float stationPos;
 		//find the first available station.
 		foreach ( GameObject station in tempStations)
 		{
-			if(station.GetComponent<ChargingStation>().IsFree)
+			stationPos = station.GetComponent<ChargingStation>().transform.localPosition.z;
+			
+			if(station.GetComponent<ChargingStation>().IsFree && carPos > stationPos)
 			{
-				targetStation = station;
-				//get the position of the charging station.
-				targetPos = targetStation.transform.localPosition;
-				targetStation.GetComponent<ChargingStation>().receiveCar(this._car);
-				break;
+				//check the station is not too far away
+				if ( (carPos - stationPos) < 10.0f )
+				{
+					Debug.Log("############TEST###########");
+					targetStation = station;
+					//get the position of the charging station.
+					targetPos = targetStation.transform.localPosition;
+					targetStation.GetComponent<ChargingStation>().receiveCar(this._car);
+					break;
+				}
+				
 			}
 		}		
 		
 		if(targetStation == null)
 		{
-			_car.ChangeState( new StateLeaving(_car) );
+			//_car.ChangeState( new StateLeaving(_car) );
 		}
 	}
 }
