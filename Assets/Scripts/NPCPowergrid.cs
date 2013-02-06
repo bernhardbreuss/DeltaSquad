@@ -10,6 +10,7 @@ public class NPCPowergrid : Powergrid
 	private float MaxHz = 52.0f;
 	
 	public PlayerPowergrid PlayerPowergrid;
+	public Weather weather;
 	
 	public override void ProduceLessEnergy ()
 	{
@@ -67,6 +68,7 @@ public class NPCPowergrid : Powergrid
 	protected override void Start ()
 	{
 		base.Start ();
+		ProducedEnergy -= 20f;
 	}
 	
 	protected override void Update ()
@@ -94,6 +96,11 @@ public class NPCPowergrid : Powergrid
 		} else {	
 			PlayerPowergrid.changeAmountEuro(money);
 		}
+	}
+	
+	protected override void ResetGrid(){
+		base.ResetGrid();
+		weather.Reset();
 	}
 }
 
