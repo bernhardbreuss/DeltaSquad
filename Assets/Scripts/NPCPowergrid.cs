@@ -5,7 +5,7 @@ public class NPCPowergrid : Powergrid
 	public float SellingFrequency = 50.5f;
 	public float BuyingFrequency = 49.5f;
 	
-	private float MoneyFactor = 1.0f;
+	private float MoneyFactor = 0.5f;
 	private float TradeFee = 0.1f;
 	private float MaxHz = 52.0f;
 	
@@ -77,16 +77,7 @@ public class NPCPowergrid : Powergrid
 			return;
 		}
 		
-		float money = 0.0f;
-		
-		if (ForeignEnergy  < 0.0f) {
-			money = ((MaxHz - OwnFrequency) * -MoneyFactor);
-		} else if (ForeignEnergy > 0.0f) {
-			money = ((50.0f - OwnFrequency) * MoneyFactor);
-		}
-		
-		money -= TradeFee;		
-		money *= Time.deltaTime;
+		float money = CurrentPrice () * Time.deltaTime;
 		
 		if ((PlayerPowergrid.Euro + money) < 0.0f) {
 			PlayerPowergrid.ForeignEnergy += ForeignEnergy;
@@ -94,6 +85,22 @@ public class NPCPowergrid : Powergrid
 		} else {	
 			PlayerPowergrid.changeAmountEuro(money);
 		}
+	}
+	
+	public float CurrentPrice() {
+		float money = 0.0f;
+		
+		if (ConsumedEnergy < ProducedEnergy) {
+			// NPC is selling energy
+			money = ((MaxHz - OwnFrequency) * -MoneyFactor);
+		} else if (ConsumedEnergy > ProducedEnergy) {
+			// NPC is buying energy
+			money = ((50.0f - OwnFrequency) * MoneyFactor);
+		}
+		
+		money -= TradeFee;
+		
+		return money;
 	}
 }
 
