@@ -15,9 +15,16 @@ public class StateSearching:AbstractCar
 	{		
 		_car.transform.Translate(0f, 0f, -carSpeed * Time.deltaTime);
 		//If we do not already have a station to fuel at, find one
-		if (_car.transform.position.z <= turningPos && !carLooped && !isFueled)
+		if (_car.transform.position.z <= turningPos)
 		{
-			_car.ChangeState(new StateTurning(_car, false));
+			if ( !carLooped )
+			{
+				_car.ChangeState(new StateTurning(_car, false));
+			}
+			else
+			{
+				_car.ChangeState(new StateLeaving(_car));
+			}
 		}
 		else if(targetStation == null)
 		{
@@ -51,8 +58,7 @@ public class StateSearching:AbstractCar
 			{
 				//check the station is not too far away
 				if ( (carPos - stationPos) < 100.0f )
-				{
-					Debug.Log("############TEST###########");
+				{					
 					targetStation = station;
 					//get the position of the charging station.
 					targetPos = targetStation.transform.localPosition;
@@ -61,12 +67,7 @@ public class StateSearching:AbstractCar
 				}
 				
 			}
-		}		
-		
-		if(targetStation == null)
-		{
-			//_car.ChangeState( new StateLeaving(_car) );
-		}
+		}			
 	}
 }
 

@@ -46,9 +46,13 @@ public class PlayerPowergrid : Powergrid
 	}
 	
 	public override void ResetGrid() {
+		
+		base.ResetGrid();
+		
 		windPowergrid.ForeignEnergy = 0.0f;
 		solarPowergrid.ForeignEnergy = 0.0f;
 		ForeignEnergy = 0.0f;
 		hydroPlant.Stop();
+		
 	}
 }
