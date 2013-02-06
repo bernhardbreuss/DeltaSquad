@@ -19,7 +19,6 @@ public class WaveManager : MonoBehaviour {
 	public List<TextAsset> WaveFiles;
 	private List<Wave> _waves;
 	private int _waveIndex;
-	private Wave _currentWave;
 	
 	// Use this for initialization
 	void Start () {
@@ -48,32 +47,49 @@ public class WaveManager : MonoBehaviour {
 		
 		if (_waveIndex < _waves.Count) {
 			Debug.Log("Starting wave");
-			_currentWave = _waves[_waveIndex];
-			
-			StartCoroutine(CarWave());
+			Wave wave = _waves[_waveIndex];
+
+			StartCoroutine(CarWave(wave._car));
+			StartCoroutine(WeatherWave(wave._wind, wind));
+			StartCoroutine(WeatherWave(wave._sun, sun));
 		}
 	}
 	
-	public IEnumerator<YieldInstruction> CarWave() {
+	private IEnumerator<YieldInstruction> CarWave(List<Task> tasks) {
 		isFinished = false;
 		_allCarsSpawned = false;
-		
-		
-		/*while(!isFinished){
+				
+		foreach (Task task in tasks) {
 			carManager.SpawnCar();
-			sun.EnergyProductionRate += 0.01f;
-			wind.EnergyProductionRate -= 0.01f;
-			Debug.Log("TimeBetweenCars: " + TimeBetweenCars);
-			yield return new WaitForSeconds(TimeBetweenCars);
-			//weather change after served car
-
-		}*/
+			Debug.Log("next car in " + task._time);
+			yield return new WaitForSeconds(task._time);
+		}
 		
-		foreach (Task task in _currentWave._car) {
-			if (task._command == Commands.Wait) {
-				carManager.SpawnCar();
-				Debug.Log("next car in " + task._time);
+		_allCarsSpawned = true;
+		
+		yield return null;
+	}
+	
+	private IEnumerator<YieldInstruction> WeatherWave(List<Task> tasks, Weather weather) {
+		for (int i = 0; i < tasks.Count; i++) {
+			Task task = tasks[i];
+			if (task._command == Commands.ChangeTo) {
+				Debug.Log(((weather == wind) ? "wind" : "sun") + " changing to " + task._v + " within " + task._time);
+				weather.ChangeTo(task._v, task._time);
 				yield return new WaitForSeconds(task._time);
+			} else if (task._command == Commands.Wait) {
+				Debug.Log(((weather == wind) ? "wind" : "sun") + " waits for " + task._time);
+				yield return new WaitForSeconds(task._time);
+			} else {
+				Debug.Log(((weather == wind) ? "wind" : "sun") + " jumps to " + task._commandNr);
+				if (task._command == Commands.GotoRemove) {
+					tasks.RemoveAt(i);
+				}
+				
+				i = (task._commandNr - 1);
+				if (i < -1 || i >= tasks.Count) {
+					i = -1;
+				}
 			}
 		}
 		
@@ -85,6 +101,7 @@ public class WaveManager : MonoBehaviour {
 			return;
 		}
 		
+		Debug.Log("Wave finished");
 		isFinished = true;
 		IsDay = false;
 		StopAllCoroutines();
@@ -132,15 +149,26 @@ public class WaveManager : MonoBehaviour {
 					} else {
 						Debug.Log("Unknown Goto argument: " + line);
 					}
+				} else if (line == "wait") {
+					line = lines[++i].Trim().ToLower();
+					if (float.TryParse(line, out time)) {
+						task = new Task(Commands.Wait, time);
+					} else {
+						Debug.Log("Unknown weather wait: " + line);
+					}
+				}else {
+					Debug.Log("Unknown weather command: " + line);
 				}
 					
 				if (task != null) {
 					if (wind) {
 						wave._wind.Add(task);
 					} else {
-						wave._wind.Add(task);
+						wave._sun.Add(task);
 					}
 				}
+			} else {
+				Debug.Log("Hi, i don't know what " + line + " means. Sorry.");
 			}
 		}
 		
