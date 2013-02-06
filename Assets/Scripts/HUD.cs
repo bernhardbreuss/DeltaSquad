@@ -21,6 +21,7 @@ public class HUD : MonoBehaviour {
 	public GUIStyle ButtonDecreaseWind;
 	public GUIStyle ButtonIncreaseSolar;
 	public GUIStyle ButtonDecreaseSolar;
+	public GUIStyle ButtonReset;
 	
 	private GUIStyle ButtonIncreaseOwnDown;
 	private GUIStyle ButtonDecreaseOwnDown;
@@ -104,7 +105,7 @@ public class HUD : MonoBehaviour {
 				
 		GUI.Label(new Rect(ownBarX + hzBarWidth - _buttonWidth, ownBarY + 30, Screen.width, 20), PlayerPowergrid.hydroPlant.Health.ToString("0 HP"), LabelHp);
 		
-		if (GUI.Button(new Rect((ownBarX + hzBarWidth), (Screen.height - _buttonHeight), 50, _buttonHeight), "Reset")) {
+		if (GUI.Button(new Rect((ownBarX + hzBarWidth), (Screen.height - ButtonReset.normal.background.height), ButtonReset.normal.background.width, ButtonReset.normal.background.height), "", ButtonReset)) {
 			PlayerPowergrid.ResetGrid();
 		}
 	}
