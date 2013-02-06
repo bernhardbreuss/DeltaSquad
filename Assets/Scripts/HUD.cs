@@ -39,6 +39,7 @@ public class HUD : MonoBehaviour {
 	
 	public Texture2D WeatherWind;
 	public Texture2D WeatherSolar;
+	public Texture2D WeatherOverlay;
 	
 	public PlayerPowergrid PlayerPowergrid;
 	public NPCPowergrid WindPowergrid;
@@ -175,7 +176,7 @@ public class HUD : MonoBehaviour {
 	
 	private void DrawWeather(Texture2D texture, float x, float y, Weather weather) {
 		float productionRate = (weather.EnergyProductionRate - Weather.MinEnergyProductionRate) / Weather.ProductionRateRange;
-		float angle = (180.0f - (180.0f * productionRate));
+		float angle = 180.0f - (180.0f * productionRate);
 		
 		Vector2 pivot;
 		pivot.x = (x + (texture.width / 2));
@@ -185,5 +186,7 @@ public class HUD : MonoBehaviour {
 		GUIUtility.RotateAroundPivot(angle, pivot);
 		GUI.DrawTexture(new Rect(x, y, texture.width, texture.height), texture);
 		GUI.matrix = matrix;
+		
+		GUI.DrawTexture(new Rect(x, y, WeatherOverlay.width, WeatherOverlay.height), WeatherOverlay);
 	}
 }

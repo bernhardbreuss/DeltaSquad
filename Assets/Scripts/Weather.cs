@@ -41,6 +41,7 @@ public class Weather : MonoBehaviour {
 	
 	public void Reset(){
 		EnergyProductionRate = 1f;
+		_changeRemain = 0.0f;
 	}
 	
 	public void ChangeTo(float newValue, float time) {
