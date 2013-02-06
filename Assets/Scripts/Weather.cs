@@ -3,8 +3,23 @@ using System.Collections;
 
 public class Weather : MonoBehaviour {
 	
-	public float EnergyProductionRate { get; set; }
-
+	private float _energyProductionRate;
+	
+	public float EnergyProductionRate { 
+		get {
+			return _energyProductionRate;
+		}
+		set {
+			float tmp = value;
+			tmp = Mathf.Max(tmp, MinEnergyProductionRate);
+			_energyProductionRate = Mathf.Min(tmp, MaxEnergyProductionRate);
+		}
+	}
+	
+	public const float MaxEnergyProductionRate = 1.2f;
+	public const float MinEnergyProductionRate = 0.8f;
+	public const float ProductionRateRange = (MaxEnergyProductionRate - MinEnergyProductionRate);
+	
 	// Use this for initialization
 	void Start () {
 		EnergyProductionRate = 1f;

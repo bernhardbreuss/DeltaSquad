@@ -12,6 +12,15 @@ public class NPCPowergrid : Powergrid
 	public PlayerPowergrid PlayerPowergrid;
 	public Weather weather;
 	
+	public override float ProducedEnergy {
+		get {
+			return (base.ProducedEnergy * weather.EnergyProductionRate);
+		}
+		set {
+			base.ProducedEnergy = value;
+		}
+	}
+	
 	public override void ProduceLessEnergy ()
 	{
 		UpdateForeignEnergy(-1);

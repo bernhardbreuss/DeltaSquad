@@ -37,6 +37,9 @@ public class HUD : MonoBehaviour {
 	public KeyCode IncreaseSolarKey = KeyCode.O;
 	public KeyCode DecreaseSolarKey = KeyCode.L;
 	
+	public Texture2D WeatherWind;
+	public Texture2D WeatherSolar;
+	
 	public PlayerPowergrid PlayerPowergrid;
 	public NPCPowergrid WindPowergrid;
 	public NPCPowergrid SolarPowergrid;
@@ -108,6 +111,9 @@ public class HUD : MonoBehaviour {
 		if (GUI.Button(new Rect((ownBarX + hzBarWidth), (Screen.height - ButtonReset.normal.background.height), ButtonReset.normal.background.width, ButtonReset.normal.background.height), "", ButtonReset)) {
 			PlayerPowergrid.ResetGrid();
 		}
+		
+		DrawWeather(WeatherWind, hzBarWidth, 0.0f, WindPowergrid.weather);
+		DrawWeather(WeatherSolar, (Screen.width - hzBarWidth - WeatherSolar.width), 0.0f, SolarPowergrid.weather);
 	}
 	
 	private void HzBarGroup(float x, float y, Buttons buttons, KeyCode increaseKey, KeyCode decreaseKey, Powergrid powergrid) {
@@ -165,5 +171,19 @@ public class HUD : MonoBehaviour {
 		posY *= HzBarSize.y;
 		
 		return (HzBarOffset.y + posY);
+	}
+	
+	private void DrawWeather(Texture2D texture, float x, float y, Weather weather) {
+		float productionRate = (weather.EnergyProductionRate - Weather.MinEnergyProductionRate) / Weather.ProductionRateRange;
+		float angle = (180.0f - (180.0f * productionRate));
+		
+		Vector2 pivot;
+		pivot.x = (x + (texture.width / 2));
+		pivot.y = (y + (texture.height / 2));
+		
+		Matrix4x4 matrix = GUI.matrix;
+		GUIUtility.RotateAroundPivot(angle, pivot);
+		GUI.DrawTexture(new Rect(x, y, texture.width, texture.height), texture);
+		GUI.matrix = matrix;
 	}
 }
