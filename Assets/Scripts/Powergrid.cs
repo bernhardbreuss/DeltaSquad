@@ -16,7 +16,7 @@ public abstract class Powergrid : MonoBehaviour
 
 	private float _producedEnergy;
 
-	public float ProducedEnergy { get; set; }
+	public virtual float ProducedEnergy { get; set; }
 
 	public float ForeignEnergy { get; set; }
 

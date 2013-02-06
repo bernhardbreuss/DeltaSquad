@@ -36,8 +36,8 @@ public class WaveManager : MonoBehaviour {
 		IsDay = true;
 		while(!isFinished){
 			carManager.SpawnCar();
-			sun.EnergyProductionRate += 0.1f;
-			wind.EnergyProductionRate -= 0.1f;
+			sun.EnergyProductionRate += 0.01f;
+			wind.EnergyProductionRate -= 0.01f;
 			Debug.Log("TimeBetweenCars: " + TimeBetweenCars);
 			yield return new WaitForSeconds(TimeBetweenCars);
 			//weather change after served car
