@@ -25,7 +25,7 @@ public class StateTurning : AbstractCar {
 	// Update is called once per frame
 	public override void Update()
 	{
-		if(reach180 <= 172.116){
+		if(reach180 <= 180){	//172.116
 			//turnAroundZ += 20;
 			//turnAroundX += 18;
 			reach180 += degrees;
@@ -34,11 +34,11 @@ public class StateTurning : AbstractCar {
 			_car.transform.Translate(0f, 0f, -(carSpeed + 23) * Time.deltaTime);
 			
 		}
-		else if(reach180 >= 172.116 && !carLooped){	
+		else if(reach180 >= 180 && !carLooped){	
 			carLooped = true;
 			_car.ChangeState(new StateGoingBack(_car));
 		}
-		else if(reach180 >= 172.116 && carLooped){
+		else if(reach180 >= 180 && carLooped){
 			_car.ChangeState(new StateSearching(_car,true));
 		}	
 			
