@@ -14,6 +14,8 @@ public class WaveManager : MonoBehaviour {
 	public Weather sun;
 	public Weather wind;
 	
+	private bool _allCarsSpawned;
+	
 	// Use this for initialization
 	IEnumerator Start () {
 		isFinished = false;
@@ -30,6 +32,7 @@ public class WaveManager : MonoBehaviour {
 	
 	public IEnumerator StartNextWave() {
 		isFinished = false;
+		_allCarsSpawned = false;
 		IsDay = true;
 		while(!isFinished){
 			carManager.SpawnCar();
@@ -44,6 +47,10 @@ public class WaveManager : MonoBehaviour {
 	}
 	
 	public void WaveFinished() {
+		if (!_allCarsSpawned) {
+			return;
+		}
+		
 		isFinished = true;
 		IsDay = false;
 	}

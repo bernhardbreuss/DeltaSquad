@@ -6,6 +6,8 @@ public class Car: MonoBehaviour {
 	//private CarManager _carManager;
 	private ICarState _state;	
 	
+	public CarManager CarManager { get; set; }
+	
 	//public Car(string carTag)
 	//{
 	//	transform.gameObject.tag = carTag; 
