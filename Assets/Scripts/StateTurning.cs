@@ -29,7 +29,7 @@ public class StateTurning : AbstractCar {
 			reach180 += degrees;
 			
 			_car.transform.Rotate(0f,degrees,0f);
-			_car.transform.Translate(0f, 0f, -(carSpeed + 50) * Time.deltaTime);
+			_car.transform.Translate(0f, 0f, -(carSpeed + 23) * Time.deltaTime);
 			
 		}
 		else if(reach180 >= 172.116 && !carLooped){	
