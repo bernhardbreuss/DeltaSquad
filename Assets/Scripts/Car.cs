@@ -16,7 +16,7 @@ public class Car: MonoBehaviour {
 	// Use this for initialization
 	void Start () {			
 		//_state = new StateSearching(this);	
-		ChangeState(new StateSearching(this));
+		ChangeState(new StateSearching(this, false));
 	}	
 	
 	// Update is called once per frame

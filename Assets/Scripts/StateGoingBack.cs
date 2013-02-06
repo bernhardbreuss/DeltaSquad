@@ -8,7 +8,7 @@ public class StateGoingBack:AbstractCar
 	
 	public StateGoingBack(Car car):base(car)
 	{
-		Debug.Log("State Leaving");
+		Debug.Log("State Going Back");
 	}
 	
 	public override void Update()

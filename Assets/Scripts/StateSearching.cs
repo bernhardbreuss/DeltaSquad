@@ -7,8 +7,10 @@ public class StateSearching:AbstractCar
 	private float turningPos = 350.0f;
 	GameObject targetStation;	
 	
-	public StateSearching(Car car):base(car)
-	{		
+	public StateSearching(Car car, bool Looped):base(car)
+	{	
+		Debug.Log("State Searching");
+		this.carLooped = Looped;
 	}		
 	
 	public override void Update()

@@ -14,6 +14,7 @@ public class StateTurning : AbstractCar {
 		reach180 = 0.0f;
 		degrees = 8.196f;
 		this.carLooped = Looped;
+		Debug.Log("looping = " + carLooped.ToString());
 		//turnAroundZ = -carSpeed;
 		//turnAroundX = -180.0f;
 		//degrees = 9f;		
@@ -38,7 +39,7 @@ public class StateTurning : AbstractCar {
 			_car.ChangeState(new StateGoingBack(_car));
 		}
 		else if(reach180 >= 172.116 && carLooped){
-			_car.ChangeState(new StateSearching(_car));
+			_car.ChangeState(new StateSearching(_car,true));
 		}	
 			
 	}
