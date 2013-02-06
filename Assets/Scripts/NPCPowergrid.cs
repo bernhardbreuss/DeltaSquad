@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 using UnityEngine;
 
 public class NPCPowergrid : Powergrid

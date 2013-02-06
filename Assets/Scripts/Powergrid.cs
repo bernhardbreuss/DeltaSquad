@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public abstract class Powergrid : MonoBehaviour {
+public abstract class Powergrid : MonoBehaviour
+{
 	
 	public float EnergyChange = 5.0f;
 	
@@ -10,30 +11,50 @@ public abstract class Powergrid : MonoBehaviour {
 	 */
 	public float baseEnergy = 100f;
 	private float _consumedEnergy;
+
 	public float ConsumedEnergy { get; set; }
+
 	private float _producedEnergy;
+
 	public float ProducedEnergy { get; set; }
+
 	public float ForeignEnergy { get; set; }
-	public float Frequency { get { return 50 * ((ProducedEnergy + ForeignEnergy) /ConsumedEnergy); } }
+
+	public float Frequency { get { return 50 * ((ProducedEnergy + ForeignEnergy) / ConsumedEnergy); } }
+
 	public float OwnFrequency { get { return 50 * (ProducedEnergy / ConsumedEnergy); } }
+
 	public WaveManager waveManager;
 	
 	// Use this for initialization
-	protected virtual void Start () {
+	protected virtual void Start ()
+	{
 		ConsumedEnergy = baseEnergy;
 		ProducedEnergy = baseEnergy;
 	}
 	
 	// Update is called once per frame
-	protected virtual void Update () {
-	
+	protected virtual void Update ()
+	{
+		if (!waveManager.IsDay) {
+			ResetGrid();
+		}
 	}
 	
-	public abstract void ProduceMoreEnergy();
-	public abstract void ProduceLessEnergy();
+	public abstract void ProduceMoreEnergy ();
+
+	public abstract void ProduceLessEnergy ();
 	
-	protected float CurrentChange() {
+	protected float CurrentChange ()
+	{
 		return (Time.deltaTime * EnergyChange);
+	}
+	
+	protected virtual void ResetGrid ()
+	{
+		ConsumedEnergy = baseEnergy;
+		ProducedEnergy = baseEnergy;
+		ForeignEnergy = 0;
 	}
 	
 }

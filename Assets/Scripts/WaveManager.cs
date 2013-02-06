@@ -11,6 +11,8 @@ public class WaveManager : MonoBehaviour {
 	//default time between two spawned cars at the beginning
 	public float baseTimeBetweenCars = 5f;
 	public float TimeBetweenCars { get; set; }
+	public Weather sun;
+	public Weather wind;
 	
 	// Use this for initialization
 	IEnumerator Start () {
@@ -33,6 +35,9 @@ public class WaveManager : MonoBehaviour {
 			carManager.SpawnCar();
 			Debug.Log("TimeBetweenCars: " + TimeBetweenCars);
 			yield return new WaitForSeconds(TimeBetweenCars);
+			//weather change after served car
+			sun.energyProductionRate += 0.1f;
+			wind.energyProductionRate -= 0.1f;
 		}
 		yield return null;
 	}
