@@ -4,7 +4,10 @@ using System.Collections;
 public class HUD : MonoBehaviour {
 	
 	public Texture2D HzBar;
-	public Texture2D HzCurrent;
+	public Texture2D HzOwn;
+	public Texture2D HzTotal;
+	public GUIStyle HzOwnStyle;
+	public GUIStyle HzTotalStyle;
 		
 	public Vector2 HzBarOffset = new Vector2(8.0f, 7.0f);
 	public Vector2 HzBarSize = new Vector2(15.0f, 137.0f);
@@ -91,25 +94,36 @@ public class HUD : MonoBehaviour {
 		float ownBarX = ((Screen.width - hzBarWidth) / 2);
 		float ownBarY = (Screen.height - HzBar.height);
 		
-		HzBarGroup(ownBarX, ownBarY, PlayerPowergrid.Frequency, _ownButtons, IncreaseOwnKey, DecreaseOwnKey, PlayerPowergrid);
+		HzBarGroup(ownBarX, ownBarY, _ownButtons, IncreaseOwnKey, DecreaseOwnKey, PlayerPowergrid);
 		
-		HzBarGroup(0, 0, WindPowergrid.Frequency, _windButtons, IncreaseWindKey, DecreaseWindKey, WindPowergrid);
+		HzBarGroup(0, 0, _windButtons, IncreaseWindKey, DecreaseWindKey, WindPowergrid);
 		
-		HzBarGroup((Screen.width - hzBarWidth), 0, SolarPowergrid.Frequency, _solarButtons, IncreaseSolarKey, DecreaseSolarKey, SolarPowergrid);
+		HzBarGroup((Screen.width - hzBarWidth), 0, _solarButtons, IncreaseSolarKey, DecreaseSolarKey, SolarPowergrid);
 				
 		GUI.Label(new Rect(ownBarX + hzBarWidth - _buttonWidth, ownBarY, 50, 30), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
 				
 		GUI.Label(new Rect(ownBarX + hzBarWidth - _buttonWidth, ownBarY + 30, Screen.width, 20), PlayerPowergrid.hydroPlant.Health.ToString("0 HP"), LabelHp);
-
+		
+		if (GUI.Button(new Rect((ownBarX + hzBarWidth), (Screen.height - _buttonHeight), 50, _buttonHeight), "Reset")) {
+			PlayerPowergrid.ResetGrid();
+		}
 	}
 	
-	private void HzBarGroup(float x, float y, float hz, Buttons buttons, KeyCode increaseKey, KeyCode decreaseKey, Powergrid powergrid) {
+	private void HzBarGroup(float x, float y, Buttons buttons, KeyCode increaseKey, KeyCode decreaseKey, Powergrid powergrid) {
 		GUILayout.BeginArea(new Rect(x, y, Screen.width / 2, Screen.height / 2));
 		
 		GUI.DrawTexture(new Rect(0, 0, HzBar.width, HzBar.height), HzBar);
-		float hzPos = GetHzCurrentPositionY(hz);
-		GUI.DrawTexture(new Rect(HzBarOffset.x, (hzPos - (HzCurrent.height / 2)), HzCurrent.width, HzCurrent.height), HzCurrent);
 		
+		//Own Hz
+		float hzPos = GetHzCurrentPositionY(powergrid.OwnFrequency);
+		GUI.DrawTexture(new Rect(HzBarOffset.x, (hzPos - (HzOwn.height / 2)), HzOwn.width, HzOwn.height), HzOwn);
+		GUI.Label(new Rect(HzBar.width, (hzPos - (HzOwnStyle.fontSize / 2)), 60, 20), powergrid.OwnFrequency.ToString("0.#0") + "Hz", HzOwnStyle);
+		
+		//Total Hz
+		hzPos = GetHzCurrentPositionY(powergrid.Frequency);
+		GUI.DrawTexture(new Rect(HzBarOffset.x, (hzPos - (HzTotal.height / 2)), HzTotal.width, HzTotal.height), HzTotal);
+		GUI.Label(new Rect(HzBar.width, (hzPos - (HzTotalStyle.fontSize / 2)), 60, 20), powergrid.Frequency.ToString("0.#0") + "Hz", HzTotalStyle);
+				
 		Rect buttonPos = new Rect(HzBar.width, (HzBar.height - _buttonHeight), _buttonWidth, _buttonHeight);
 		if (GUI.RepeatButton(buttonPos, "", buttons.increaseCurrent) || Input.GetKey(increaseKey)) {
 			buttons.increaseCurrent = buttons.increaseActive;
@@ -126,7 +140,6 @@ public class HUD : MonoBehaviour {
 			buttons.decreaseCurrent = buttons.decreaseNormal;
 		}
 		
-		GUI.Label(new Rect(HzBar.width, (hzPos - 10), 60, 20), hz.ToString("0.#0") + "Hz");
 		
 		if (powergrid is NPCPowergrid) {
 			GUI.Label(new Rect(HzBar.width, 0, (2 * _buttonWidth), 20), ((NPCPowergrid)powergrid).CurrentPrice().ToString("0.#0 $"), LabelForeignPrice);

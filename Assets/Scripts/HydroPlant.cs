@@ -17,8 +17,6 @@ public class HydroPlant : MonoBehaviour {
 	}
 	
 	private State _state;
-	private float _consumedEnergy;
-	private float _producedEnergy;
 	//loss of energy if same amount of water is used for generation and pumping the water
 	public float efficency = 0.7f;
 	public Reservoir mountainReservoir;
@@ -39,13 +37,13 @@ public class HydroPlant : MonoBehaviour {
 			if (valleyReservoir.Water>0.0f) {
 				Pump();
 			} else {
-				powergrid.ProducedEnergy=powergrid.baseEnergy;
+				Stop();
 			}
 		} else {
 			if(mountainReservoir.Water>0){
 				GenerateEnergy();
 			}else{
-				powergrid.ProducedEnergy=powergrid.baseEnergy;
+				Stop();
 			}
 		}
 	}
@@ -56,18 +54,22 @@ public class HydroPlant : MonoBehaviour {
 	}
 	
 	public void Pump() {
-		_consumedEnergy = powergrid.baseEnergy - powergrid.ProducedEnergy;
-		float waterFlow = Time.deltaTime * _consumedEnergy * efficency;
+		float consumedEnergy = powergrid.baseEnergy - powergrid.ProducedEnergy;
+		float waterFlow = Time.deltaTime * consumedEnergy * efficency;
 		valleyReservoir.Water -= waterFlow;
 		mountainReservoir.Water += waterFlow;
 	}
 	
 
 	public void GenerateEnergy() {
-		_producedEnergy = powergrid.ProducedEnergy - powergrid.baseEnergy;
-		float waterFlow = Time.deltaTime * _producedEnergy;
+		float producedEnergy = powergrid.ProducedEnergy - powergrid.baseEnergy;
+		float waterFlow = Time.deltaTime * producedEnergy;
 		valleyReservoir.Water += waterFlow;
 		mountainReservoir.Water -= waterFlow;
+	}
+	
+	public void Stop() {
+		powergrid.ProducedEnergy = powergrid.baseEnergy;
 	}
 	
 }

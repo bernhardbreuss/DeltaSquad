@@ -5,11 +5,12 @@ public class NPCPowergrid : Powergrid
 	public float SellingFrequency = 50.5f;
 	public float BuyingFrequency = 49.5f;
 	
-	private float MoneyFactor = 0.5f;
+	private float MoneyFactor = 1.0f;
 	private float TradeFee = 0.1f;
 	private float MaxHz = 52.0f;
 	
 	public PlayerPowergrid PlayerPowergrid;
+	public Weather weather;
 	
 	public override void ProduceLessEnergy ()
 	{
@@ -102,5 +103,9 @@ public class NPCPowergrid : Powergrid
 		
 		return money;
 	}
+	
+	public override void ResetGrid(){
+		base.ResetGrid();
+		weather.Reset();
+	}
 }
-
