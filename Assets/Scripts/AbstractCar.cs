@@ -5,8 +5,8 @@ public abstract class AbstractCar:ICarState
 {
 	public Car _car;	
 	public float carSpeed = 100.0f;
-	public Boolean carLooped = false;
-	public Boolean isFueled = false;
+	public bool carLooped = false;
+	public bool isFueled = false;
 	
 	public AbstractCar (Car mCar)
 	{
