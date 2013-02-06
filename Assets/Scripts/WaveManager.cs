@@ -7,6 +7,7 @@ public class WaveManager : MonoBehaviour {
 	//public GameObject carManagerObject;
 	
 	private bool isFinished;
+	public bool IsDay { get; set; }
 	//default time between two spawned cars at the beginning
 	public float baseTimeBetweenCars = 5f;
 	public float TimeBetweenCars { get; set; }
@@ -27,6 +28,7 @@ public class WaveManager : MonoBehaviour {
 	
 	public IEnumerator StartNextWave() {
 		isFinished = false;
+		IsDay = true;
 		while(!isFinished){
 			carManager.SpawnCar();
 			Debug.Log("TimeBetweenCars: " + TimeBetweenCars);
@@ -37,5 +39,6 @@ public class WaveManager : MonoBehaviour {
 	
 	public void WaveFinished() {
 		isFinished = true;
+		IsDay = false;
 	}
 }

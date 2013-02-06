@@ -16,6 +16,7 @@ public abstract class Powergrid : MonoBehaviour {
 	public float ForeignEnergy { get; set; }
 	public float Frequency { get { return 50 * ((ProducedEnergy + ForeignEnergy) /ConsumedEnergy); } }
 	public float OwnFrequency { get { return 50 * (ProducedEnergy / ConsumedEnergy); } }
+	public WaveManager waveManager;
 	
 	// Use this for initialization
 	protected virtual void Start () {
