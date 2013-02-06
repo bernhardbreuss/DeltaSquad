@@ -8,11 +8,12 @@ public class StateTurning : AbstractCar {
 	public float degrees;
 	
 	
-	public  StateTurning(Car car):base(car)
+	public  StateTurning(Car car, bool Looped):base(car)
 	{
 		Debug.Log("State Turning ---------------------------------------------------");
 		reach180 = 0.0f;
 		degrees = 8.196f;
+		this.carLooped = Looped;
 		//turnAroundZ = -carSpeed;
 		//turnAroundX = -180.0f;
 		//degrees = 9f;		
@@ -38,28 +39,9 @@ public class StateTurning : AbstractCar {
 		}
 		else if(reach180 >= 172.116 && carLooped){
 			_car.ChangeState(new StateSearching(_car));
-		}
-		// car.transform.Translate(-10f * Time.deltaTime, 0f, 0f);
-		//_car.transform.eulerAngles = new Vector3(0f, 180f, 0f);
+		}	
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			//_car.transform.Rotate(Vector3.up*90,Space.Self);
-			//_
-			//_car.transform.Translate(0f, 0f, 0f);
-			//-carSpeed * Time.deltaTime
-		}
+	}
 	
 }
 

@@ -20,7 +20,7 @@ public class StateGoingBack:AbstractCar
 		//	_car.ChangeState(new StateSearching(_car));
 		//}
 		if(_car.transform.position.z >= turningPos){
-			_car.ChangeState(new StateTurning(_car));
+			_car.ChangeState(new StateTurning(_car, true));
 		}
 	}
 }

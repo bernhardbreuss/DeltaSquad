@@ -17,7 +17,7 @@ public class StateSearching:AbstractCar
 		//If we do not already have a station to fuel at, find one
 		if (_car.transform.position.z <= turningPos && !carLooped && !isFueled)
 		{
-			_car.ChangeState(new StateTurning(_car));
+			_car.ChangeState(new StateTurning(_car, false));
 		}
 		else if(targetStation == null)
 		{
@@ -36,8 +36,7 @@ public class StateSearching:AbstractCar
 	} 
 	
 	public void searchForStation()
-	{
-		Debug.Log("State Searching");
+	{		
 		//find all charging station objects.
 		GameObject[] tempStations = GameObject.FindGameObjectsWithTag("station1");
 		
@@ -51,7 +50,7 @@ public class StateSearching:AbstractCar
 			if(station.GetComponent<ChargingStation>().IsFree && carPos > stationPos)
 			{
 				//check the station is not too far away
-				if ( (carPos - stationPos) < 10.0f )
+				if ( (carPos - stationPos) < 100.0f )
 				{
 					Debug.Log("############TEST###########");
 					targetStation = station;
