@@ -3,11 +3,11 @@ using System.Collections;
 
 public class Weather : MonoBehaviour {
 	
-	public float energyProductionRate = 1f;
+	public float EnergyProductionRate { get; set; }
 
 	// Use this for initialization
 	void Start () {
-	
+		EnergyProductionRate = 1f;
 	}
 	
 	// Update is called once per frame
@@ -16,6 +16,6 @@ public class Weather : MonoBehaviour {
 	}
 	
 	public void Reset(){
-		energyProductionRate = 0;
+		EnergyProductionRate = 1f;
 	}
 }
