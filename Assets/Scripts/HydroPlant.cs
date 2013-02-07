@@ -14,7 +14,8 @@ public class HydroPlant : MonoBehaviour {
 		}
 		set {
 			if (value < MinHealth) {
-				// TODO: raise GameOver
+				GameOver = true;
+				Time.timeScale = 0.0f;
 			} else {
 				value = Mathf.Min(value, MaxHealth);
 			}
@@ -25,6 +26,8 @@ public class HydroPlant : MonoBehaviour {
 	
 	private float RepairRate = 10.0f;
 	private float RepairCost = 10.0f;
+	
+	public bool GameOver { get; private set; }
 	
 	private enum State {
 		Idle,
