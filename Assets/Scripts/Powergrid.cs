@@ -36,9 +36,7 @@ public abstract class Powergrid : MonoBehaviour
 	// Update is called once per frame
 	protected virtual void Update ()
 	{
-		if (!waveManager.IsDay) {
-			ResetGrid();
-		}
+		
 	}
 	
 	public abstract void ProduceMoreEnergy ();

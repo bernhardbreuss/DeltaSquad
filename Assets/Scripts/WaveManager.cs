@@ -11,8 +11,12 @@ public class WaveManager : MonoBehaviour {
 	//default time between two spawned cars at the beginning
 	public float baseTimeBetweenCars = 5f;
 	public float TimeBetweenCars { get; set; }
-	public Weather sun;
-	public Weather wind;
+	private Weather sun;
+	private Weather wind;
+	public Powergrid playerGrid;
+	public Powergrid windGrid;
+	public Powergrid sunGrid;
+	
 	
 	private bool _allCarsSpawned;
 	
@@ -105,6 +109,9 @@ public class WaveManager : MonoBehaviour {
 		isFinished = true;
 		IsDay = false;
 		StopAllCoroutines();
+		playerGrid.ResetGrid();
+		windGrid.ResetGrid();
+		sunGrid.ResetGrid();
 	}
 	
 	private Wave ParseAsset(TextAsset asset) {
