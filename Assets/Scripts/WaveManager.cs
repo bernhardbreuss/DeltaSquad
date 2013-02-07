@@ -16,6 +16,8 @@ public class WaveManager : MonoBehaviour {
 	public Powergrid playerGrid;
 	public Powergrid windGrid;
 	public Powergrid sunGrid;
+	public float nightDuration;
+	public float CurrentNightDuration { get; private set; }
 	
 	
 	private bool _allCarsSpawned;
@@ -42,7 +44,9 @@ public class WaveManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		 
+		 if(!IsDay){
+			currentNightDuration -= Time.deltaTime;
+		}
 	}
 	
 	public void StartNextWave() {
@@ -112,6 +116,13 @@ public class WaveManager : MonoBehaviour {
 		playerGrid.ResetGrid();
 		windGrid.ResetGrid();
 		sunGrid.ResetGrid();
+		StartCoroutine(WaitNight());
+	}
+	
+	private IEnumerator<YieldInstruction> WaitNight(){
+		yield return new WaitForSeconds(nightDuration);
+		Debug.Log("Night Over");
+		StartNextWave();
 	}
 	
 	private Wave ParseAsset(TextAsset asset) {
