@@ -126,6 +126,13 @@ public class WaveManager : MonoBehaviour {
 		StartNextWave();
 	}
 	
+	public void SkipNight(){
+		if(!IsDay){
+			StopAllCoroutines();
+			StartNextWave();
+		}
+	}
+	
 	private Wave ParseAsset(TextAsset asset) {
 		Wave wave = new Wave();
 		string[] lines = asset.text.Split(new string[] {"\n"}, System.StringSplitOptions.RemoveEmptyEntries);
