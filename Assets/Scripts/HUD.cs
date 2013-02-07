@@ -30,6 +30,7 @@ public class HUD : MonoBehaviour {
 	public GUIStyle LabelEuro;
 	public GUIStyle LabelHp;
 	public GUIStyle LabelForeignPrice;
+	public GUIStyle LabelNightDuration;
 		
 	public KeyCode IncreaseOwnKey = KeyCode.W;
 	public KeyCode DecreaseOwnKey = KeyCode.S;
@@ -135,6 +136,8 @@ public class HUD : MonoBehaviour {
 		if (GUI.RepeatButton(new Rect((_ownBarX + _hzBarWidth - _buttonWidth), (_ownBarY + 60), ButtonRepair.normal.background.width, ButtonRepair.normal.background.height), "", ButtonRepair)) {
 			PlayerPowergrid.hydroPlant.Repair();
 		}
+		
+		GUI.Label(new Rect(0, 0, Screen.width, Screen.height), "Day in " + WaveManager.CurrentNightDuration.ToString("0.#0") + " Seconds", LabelNightDuration);
 	}
 	
 	private void HzBarGroup(float x, float y, Buttons buttons, KeyCode increaseKey, KeyCode decreaseKey, Powergrid powergrid) {
