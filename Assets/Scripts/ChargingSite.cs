@@ -57,6 +57,7 @@ public class ChargingSite: MonoBehaviour {
 		position.y += 30;
 		
 		powergrid.changeAmountEuro(-chargeStationCost);
+		AudioManager.Get.playSound(AudioManager.SoundEffects.BuildChargingStation);
 		Instantiate(chargingStation, position, chargingStation.rotation);
 		chargingStation.GetComponent<ChargingStation>().SetPowergrid(powergrid);				
 		//Destroy(gameObject);

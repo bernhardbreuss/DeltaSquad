@@ -34,8 +34,7 @@ public class ChargingStation: MonoBehaviour {
 	
 	public void StartCharging() {
 		
-		powergrid.ConsumedEnergy += rechargingRate;
-		powergrid.changeAmountEuro(Car.IncomeCar);			
+		powergrid.ConsumedEnergy += rechargingRate;	
 		StartCoroutine(ChargingFinished());	
 		 
    	
@@ -45,6 +44,7 @@ public class ChargingStation: MonoBehaviour {
 		yield return new WaitForSeconds(chargeTime);
 		_car.Charged = true;
 		powergrid.ConsumedEnergy -= rechargingRate;
+		powergrid.changeAmountEuro(Car.IncomeCar);		
 		if ( !_car.freeToMove() )
 		{
 			yield return new WaitForSeconds(1);

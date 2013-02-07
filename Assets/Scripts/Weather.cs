@@ -30,7 +30,11 @@ public class Weather : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (_changeRemain > 0.0f) {
-			EnergyProductionRate -= (_change * Time.deltaTime);
+			float change = (_change * Time.deltaTime);
+			if (EnergyProductionRate >= 0.995 && (EnergyProductionRate - change) < 0.995) {
+				AudioManager.Get.playSound(AudioManager.SoundEffects.Weather);
+			}
+			EnergyProductionRate -= change;
 			_changeRemain -= Time.deltaTime;
 		} else if (_changeRemain < 0.0f) {
 			_changeRemain = 0.0f;
@@ -44,8 +48,12 @@ public class Weather : MonoBehaviour {
 	}
 	
 	public void ChangeTo(float newValue, float time) {
-		_change = (EnergyProductionRate - newValue) / time;
-		_changeRemain = time;
-		_targetValue = newValue;
+		if (time == 0.0f) {
+			EnergyProductionRate = newValue;
+		} else {		
+			_change = (EnergyProductionRate - newValue) / time;
+			_changeRemain = time;
+			_targetValue = newValue;
+		}
 	}
 }

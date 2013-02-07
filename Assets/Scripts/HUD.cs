@@ -23,6 +23,7 @@ public class HUD : MonoBehaviour {
 	public GUIStyle ButtonDecreaseSolar;
 	public GUIStyle ButtonReset;
 	public GUIStyle ButtonRepair;
+	public GUIStyle ButtonSkipNight;
 	
 	private GUIStyle ButtonIncreaseOwnDown;
 	private GUIStyle ButtonDecreaseOwnDown;
@@ -81,7 +82,7 @@ public class HUD : MonoBehaviour {
 		
 		_hzBarWidth = (HzBar.width + (2 * _buttonWidth));
 		_ownBarX = ((Screen.width - _hzBarWidth) / 2);
-		_ownBarY = (Screen.height - HzBar.height);
+		_ownBarY = (Screen.height - HzBar.height - _buttonHeight);
 	}
 	
 	private Buttons CreateButtonStruct(GUIStyle increase, GUIStyle decrease) {
@@ -107,10 +108,8 @@ public class HUD : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		
-		
 		if (PlayerPowergrid.hydroPlant.GameOver) {
-			GUI.Label(new Rect(0, 0, Screen.width, Screen.height), "Game Over\nYour Score: " + PlayerPowergrid.Euro.ToString("0.#0 $"), LabelGameOver);
+			GUI.Label(new Rect(0, 0, Screen.width, Screen.height), "Game Over\nYour Score: " + PlayerPowergrid.Euro.ToString("0.#0") + " $", LabelGameOver);
 		} else {
 			if (WaveManager.IsDay) {
 				DayHud ();
@@ -129,7 +128,7 @@ public class HUD : MonoBehaviour {
 		
 		HzBarGroup((Screen.width - _hzBarWidth), 0, _solarButtons, IncreaseSolarKey, DecreaseSolarKey, SolarPowergrid);
 		
-		if (GUI.Button(new Rect((_ownBarX + _hzBarWidth), (Screen.height - ButtonReset.normal.background.height), ButtonReset.normal.background.width, ButtonReset.normal.background.height), "", ButtonReset)) {
+		if (GUI.Button(new Rect((_ownBarX + (2 * _buttonWidth)), (Screen.height - ButtonReset.normal.background.height), ButtonReset.normal.background.width, ButtonReset.normal.background.height), "", ButtonReset)) {
 			PlayerPowergrid.ResetGrid();
 		}
 		
@@ -140,6 +139,10 @@ public class HUD : MonoBehaviour {
 	private void NightHud() {
 		if (GUI.RepeatButton(new Rect((_ownBarX + _hzBarWidth - _buttonWidth), (_ownBarY + 60), ButtonRepair.normal.background.width, ButtonRepair.normal.background.height), "", ButtonRepair)) {
 			PlayerPowergrid.hydroPlant.Repair();
+		}
+		
+		if (GUI.Button(new Rect(((Screen.width - ButtonSkipNight.normal.background.width) / 2), ((Screen.height / 2) - ButtonSkipNight.normal.background.height - 10), ButtonSkipNight.normal.background.width, ButtonSkipNight.normal.background.height), "", ButtonSkipNight)) {
+			//WaveManager.SkipNight();
 		}
 		
 		GUI.Label(new Rect(0, 0, Screen.width, Screen.height), "Day in " + WaveManager.CurrentNightDuration.ToString("0.#0") + " Seconds", LabelNightDuration);
@@ -160,7 +163,7 @@ public class HUD : MonoBehaviour {
 		GUI.DrawTexture(new Rect(HzBarOffset.x, (hzPos - (HzTotal.height / 2)), HzTotal.width, HzTotal.height), HzTotal);
 		GUI.Label(new Rect(HzBar.width, (hzPos - (HzTotalStyle.fontSize / 2)), 60, 20), powergrid.Frequency.ToString("0.#0") + "Hz", HzTotalStyle);
 				
-		Rect buttonPos = new Rect(HzBar.width, (HzBar.height - _buttonHeight), _buttonWidth, _buttonHeight);
+		Rect buttonPos = new Rect(0, HzBar.height, _buttonWidth, _buttonHeight);
 		if (GUI.RepeatButton(buttonPos, "", buttons.increaseCurrent) || Input.GetKey(increaseKey)) {
 			buttons.increaseCurrent = buttons.increaseActive;
 			powergrid.ProduceMoreEnergy();

@@ -13,9 +13,22 @@ public class HydroPlant : MonoBehaviour {
 			return _health;
 		}
 		set {
+			if (GameOver) {
+				return;
+			}
+			
+			if (Health >= 50.0f && value < 50.0f) {
+				AudioManager.Get.playSound(AudioManager.SoundEffects.Hp50);
+			} else if (Health >= 25.0f && value < 25.0f) {
+				AudioManager.Get.playSound(AudioManager.SoundEffects.Hp25);
+			} else if (Health >= 10.0f && value < 10.0f) {
+				AudioManager.Get.playSound(AudioManager.SoundEffects.Hp10);
+			}
+			
 			if (value < MinHealth) {
 				GameOver = true;
 				Time.timeScale = 0.0f;
+				AudioManager.Get.playSound(AudioManager.SoundEffects.Gameover);
 			} else {
 				value = Mathf.Min(value, MaxHealth);
 			}

@@ -27,6 +27,7 @@ public class StateSearching:AbstractCar
 			{
 				_car.ChangeState(new StateLeaving(_car));
 			}
+			AudioManager.Get.playSound(AudioManager.SoundEffects.Honking);
 		}
 		else if(targetStation == null)
 		{

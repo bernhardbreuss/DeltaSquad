@@ -8,7 +8,19 @@ public class Reservoir : MonoBehaviour
 	public float ground;
 	public float top;
 	//Water in percent e.g. whole system has 100
-	public float Water { get; set; }
+	
+	private float _water;
+	public float Water {
+		get {
+			return _water;
+		}
+		set {
+			if (_water >= 10.0f && value < 10.0f) {
+				AudioManager.Get.playSound(AudioManager.SoundEffects.Reservoir);
+			}
+			_water = value;
+		}
+	}
 	
 	void Start(){
 		baseLvlChange = (top - ground) / 100;
