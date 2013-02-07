@@ -17,14 +17,14 @@ public class WeatherParticles : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	   if (Input.GetKeyDown("1"))
+	   if (Input.GetKeyDown("1")) {
 			clouds.particleEmitter.emit = true;
 			rain.particleEmitter.emit = true;
-		
-		 if (Input.GetKeyDown("2"))
+		}
+		 if (Input.GetKeyDown("2")){
 			clouds.particleEmitter.emit = false;
 			rain.particleEmitter.emit = false;
-		  
+		}
 		//if (Input.GetKeyDown("3"))
 			//rain.particleEmitter.emit = true;
 			

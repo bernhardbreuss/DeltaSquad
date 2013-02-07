@@ -23,11 +23,11 @@ public class Reservoir : MonoBehaviour
 	}
 	
 	void Start(){
-		baseLvlChange = (top - ground) / 100;
+		baseLvlChange = Mathf.Abs((top - ground) / 100);
 	}
 	
 	void Update(){
-		float newPosition = Water * baseLvlChange;
+		float newPosition = (Water * baseLvlChange) + ground;
 		Vector3 oldPosition = WaterPlane.transform.localPosition;
 		oldPosition.y = newPosition;
 		WaterPlane.transform.localPosition = oldPosition;
