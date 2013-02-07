@@ -45,7 +45,7 @@ public class WaveManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		 if(!IsDay){
-			currentNightDuration -= Time.deltaTime;
+			CurrentNightDuration -= Time.deltaTime;
 		}
 	}
 	
@@ -116,6 +116,7 @@ public class WaveManager : MonoBehaviour {
 		playerGrid.ResetGrid();
 		windGrid.ResetGrid();
 		sunGrid.ResetGrid();
+		CurrentNightDuration = nightDuration;
 		StartCoroutine(WaitNight());
 	}
 	
