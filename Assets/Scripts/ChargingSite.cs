@@ -29,7 +29,8 @@ public class ChargingSite: MonoBehaviour {
 	
 	void OnMouseOver () 
 	{
-		if (!isOccupied && powergrid.Euro >= chargeStationCost && !powergrid.hydroPlant.GameOver) {
+		WaveManager wm = (WaveManager) GameObject.FindObjectOfType(typeof(WaveManager));
+		if (!isOccupied && powergrid.Euro >= (chargeStationCost * (wm.builtChargeStations+1)) && !powergrid.hydroPlant.GameOver) {
 			renderer.material.SetColor ("_Color", hoverColour);
 		}
 		else
@@ -44,7 +45,8 @@ public class ChargingSite: MonoBehaviour {
 	
 	void OnMouseDown()
 	{
-		if(!isOccupied && powergrid.Euro >= chargeStationCost && !powergrid.hydroPlant.GameOver)
+		WaveManager wm = (WaveManager) GameObject.FindObjectOfType(typeof(WaveManager));
+		if(!isOccupied && powergrid.Euro >= (chargeStationCost * (wm.builtChargeStations+1)) && !powergrid.hydroPlant.GameOver)
 		{
 			isOccupied = true;
 			AddChargingStation();
@@ -53,13 +55,15 @@ public class ChargingSite: MonoBehaviour {
 	
 	void AddChargingStation()
 	{
+		WaveManager wm = (WaveManager) GameObject.FindObjectOfType(typeof(WaveManager));
+		wm.builtChargeStations++;
 		Vector3 position = transform.position;
-		position.y += 30;
-		
-		powergrid.changeAmountEuro(-chargeStationCost);		
+		position.y += 30;	
 		
 		Transform chargeStation = Instantiate(chargingStation, position, chargingStation.rotation) as Transform;
 		chargeStation.GetComponent<ChargingStation>().SetPowergrid(powergrid);		
+
+		powergrid.changeAmountEuro(-chargeStationCost * wm.builtChargeStations);
 	}
 
 
