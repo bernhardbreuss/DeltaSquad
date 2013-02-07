@@ -142,7 +142,7 @@ public class HUD : MonoBehaviour {
 		}
 		
 		if (GUI.Button(new Rect(((Screen.width - ButtonSkipNight.normal.background.width) / 2), ((Screen.height / 2) - ButtonSkipNight.normal.background.height - 10), ButtonSkipNight.normal.background.width, ButtonSkipNight.normal.background.height), "", ButtonSkipNight)) {
-			//WaveManager.SkipNight();
+			WaveManager.SkipNight();
 		}
 		
 		GUI.Label(new Rect(0, 0, Screen.width, Screen.height), "Day in " + WaveManager.CurrentNightDuration.ToString("0.#0") + " Seconds", LabelNightDuration);
