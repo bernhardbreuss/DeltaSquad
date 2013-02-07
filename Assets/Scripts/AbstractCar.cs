@@ -17,6 +17,7 @@ public abstract class AbstractCar:ICarState
 	
 	public abstract void Update();
 	public virtual void stateStarted(){}
+	public virtual void stateFinished(){}
 }
 
 

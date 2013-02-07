@@ -8,7 +8,6 @@ public class ChargingStation: MonoBehaviour {
 	private Car _car ;
 	public float rechargingRate = 1.0f;	
 	public float incomeCar = 5f;
-	public VisualizeCharging _visualizeCharging;
 	
 	public bool IsFree { get; set; }
 	
@@ -39,7 +38,6 @@ public class ChargingStation: MonoBehaviour {
 		powergrid.ConsumedEnergy += rechargingRate;
 		powergrid.changeAmountEuro(incomeCar);			
 		StartCoroutine(ChargingFinished());	
-		_visualizeCharging.startAnimation();
 		 
    	
 	}
@@ -49,7 +47,6 @@ public class ChargingStation: MonoBehaviour {
 		powergrid.ConsumedEnergy -= rechargingRate;	
 		_car.transform.Translate(-35f,0f,0f);
 		_car.ChangeState(new StateLeaving(_car));
-		_visualizeCharging.startAnimation();
 		_car = null;
 		IsFree = true; 
 	}

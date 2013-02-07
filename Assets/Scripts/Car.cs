@@ -25,6 +25,10 @@ public class Car: MonoBehaviour {
 	}
 	
 	public void ChangeState(ICarState newState) {
+		if (_state != null) {
+			_state.stateFinished();
+		}
+		
 		_state = newState;
 		_state.stateStarted();
 	}

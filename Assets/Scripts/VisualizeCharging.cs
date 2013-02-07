@@ -7,14 +7,14 @@ public class VisualizeCharging : MonoBehaviour {
 	
  // Use this for initialization
     void Start () {
-        renderer.enabled = false;
-    }
+    	stopAnimation();
+	}
     
     // Update is called once per frame
     void Update () {
         if(renderer.enabled){
 			
-			gameObject.transform.Rotate(0f,degrees * Time.deltaTime * 30,0f);
+			gameObject.transform.Rotate(0f,0f,degrees * Time.deltaTime * 15);
         }
     }
     public void startAnimation(){ 
