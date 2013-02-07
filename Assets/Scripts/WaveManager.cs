@@ -51,14 +51,16 @@ public class WaveManager : MonoBehaviour {
 		_waveIndex++;
 		IsDay = true;
 		
-		if (_waveIndex < _waves.Count) {
-			Debug.Log("Starting wave");
-			Wave wave = _waves[_waveIndex];
-
-			StartCoroutine(CarWave(wave._car));
-			StartCoroutine(WeatherWave(wave._wind, windGrid.weather));
-			StartCoroutine(WeatherWave(wave._sun, sunGrid.weather));
+		if (_waveIndex >= _waves.Count) {
+			_waveIndex = (_waves.Count - 1);
 		}
+		
+		Debug.Log("Starting wave " + _waveIndex);
+		Wave wave = _waves[_waveIndex];
+
+		StartCoroutine(CarWave(wave._car));
+		StartCoroutine(WeatherWave(wave._wind, windGrid.weather));
+		StartCoroutine(WeatherWave(wave._sun, sunGrid.weather));
 	}
 	
 	private IEnumerator<YieldInstruction> CarWave(List<Task> tasks) {
@@ -134,6 +136,10 @@ public class WaveManager : MonoBehaviour {
 		
 		for (int i = 0; i < lines.Length; i++) {
 			string line = lines[i].Trim().ToLower();
+			if (line.Length == 0) {
+				continue;
+			}
+			
 			if (line == "car") {
 				line = lines[++i].Trim().ToLower().ToLower();
 				if (float.TryParse(line, out time)) {

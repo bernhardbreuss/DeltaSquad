@@ -29,9 +29,12 @@ public class ChargingSite: MonoBehaviour {
 	
 	void OnMouseOver () 
 	{
-		if (powergrid.Euro >= chargeStationCost) {
+		if (!isOccupied && powergrid.Euro >= chargeStationCost && !powergrid.hydroPlant.GameOver) {
 			renderer.material.SetColor ("_Color", hoverColour);
 		}
+		else
+			renderer.material.SetColor("_Color", colour);
+			
 	}
 		
 	void OnMouseExit()
@@ -41,7 +44,7 @@ public class ChargingSite: MonoBehaviour {
 	
 	void OnMouseDown()
 	{
-		if(!isOccupied && powergrid.Euro >= chargeStationCost)
+		if(!isOccupied && powergrid.Euro >= chargeStationCost && !powergrid.hydroPlant.GameOver)
 		{
 			isOccupied = true;
 			AddChargingStation();
@@ -56,7 +59,7 @@ public class ChargingSite: MonoBehaviour {
 		powergrid.changeAmountEuro(-chargeStationCost);
 		Instantiate(chargingStation, position, chargingStation.rotation);
 		chargingStation.GetComponent<ChargingStation>().SetPowergrid(powergrid);				
-		Destroy(gameObject);
+		//Destroy(gameObject);
 	}
 
 
