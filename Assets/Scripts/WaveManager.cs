@@ -16,7 +16,7 @@ public class WaveManager : MonoBehaviour {
 	public NPCPowergrid sunGrid;
 	public float nightDuration;
 	public float CurrentNightDuration { get; private set; }
-	
+	public int builtChargeStations { get; set; }
 	
 	private bool _allCarsSpawned;
 	
@@ -124,6 +124,13 @@ public class WaveManager : MonoBehaviour {
 		yield return new WaitForSeconds(nightDuration);
 		Debug.Log("Night Over");
 		StartNextWave();
+	}
+	
+	public void SkipNight(){
+		if(!IsDay){
+			StopAllCoroutines();
+			StartNextWave();
+		}
 	}
 	
 	private Wave ParseAsset(TextAsset asset) {

@@ -35,6 +35,5 @@ public class Car: MonoBehaviour {
 	public bool freeToMove()
 	{		
 		return ( CarManager.IsWayFree(this) );		
-	}
-	
+	}	
 }

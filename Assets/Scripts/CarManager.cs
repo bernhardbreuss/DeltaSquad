@@ -47,7 +47,7 @@ public class CarManager: MonoBehaviour {
 				Debug.Log("DEBUG : comparing other car");
 				float newCarPos = newCar.transform.position.z;
 				float distance = carPos - newCarPos;
-				if ( distance < 50.0f && distance > -50.0f )
+				if ( distance < 30.0f && distance > -30.0f )
 				{
 					return false;
 				}

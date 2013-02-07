@@ -35,9 +35,7 @@ public class ChargingStation: MonoBehaviour {
 	public void StartCharging() {
 		
 		powergrid.ConsumedEnergy += rechargingRate;	
-		StartCoroutine(ChargingFinished());	
-		 
-   	
+		StartCoroutine(ChargingFinished());	   	
 	}
 	
 	public IEnumerator ChargingFinished() {

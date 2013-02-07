@@ -5,15 +5,14 @@ public class StateTurning : AbstractCar {
 	public float turnAroundX;
     public float turnAroundZ;
 	public float reach180;
-	public float degrees;
-	
+	public float degrees;	
 	
 	public  StateTurning(Car car, bool Looped):base(car)
 	{
-		Debug.Log("State Turning ---------------------------------------------------");
+		Debug.Log("State Turning ");
 		reach180 = 0.0f;
 		degrees = 8.196f;
-		this.carLooped = Looped;
+		this.carLooped = Looped;		
 		Debug.Log("looping = " + carLooped.ToString());
 		//turnAroundZ = -carSpeed;
 		//turnAroundX = -180.0f;
@@ -44,8 +43,7 @@ public class StateTurning : AbstractCar {
 			_car.ChangeState(new StateSearching(_car,true));
 		}	
 			
-	}
-	
+	}	
 }
 
 
