@@ -11,7 +11,7 @@ public class WaveManager : MonoBehaviour {
 	//default time between two spawned cars at the beginning
 	public float baseTimeBetweenCars = 5f;
 	public float TimeBetweenCars { get; set; }
-	public Powergrid playerGrid;
+	public PlayerPowergrid playerGrid;
 	public NPCPowergrid windGrid;
 	public NPCPowergrid sunGrid;
 	public float nightDuration;
@@ -124,6 +124,13 @@ public class WaveManager : MonoBehaviour {
 		yield return new WaitForSeconds(nightDuration);
 		Debug.Log("Night Over");
 		StartNextWave();
+	}
+	
+	public void SkipNight(){
+		if(!IsDay){
+			StopAllCoroutines();
+			StartNextWave();
+		}
 	}
 	
 	private Wave ParseAsset(TextAsset asset) {

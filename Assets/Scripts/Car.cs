@@ -3,10 +3,13 @@ using System.Collections;
 
 public class Car: MonoBehaviour {
 	
+	public const float IncomeCar = 5.0f;
+	
 	//private CarManager _carManager;
-	private ICarState _state;	
+	private ICarState _state;
 	
 	public CarManager CarManager { get; set; }
+	public bool Charged { get; set; }
 	
 	// Use this for initialization
 	void Start () {			

@@ -7,7 +7,6 @@ public class ChargingStation: MonoBehaviour {
 	public PlayerPowergrid powergrid ;
 	private Car _car ;
 	public float rechargingRate = 1.0f;	
-	public float incomeCar = 5f;
 	
 	public bool IsFree { get; set; }
 	
@@ -36,7 +35,7 @@ public class ChargingStation: MonoBehaviour {
 	public void StartCharging() {
 		
 		powergrid.ConsumedEnergy += rechargingRate;
-		powergrid.changeAmountEuro(incomeCar);			
+		powergrid.changeAmountEuro(Car.IncomeCar);			
 		StartCoroutine(ChargingFinished());	
 		 
    	
@@ -44,6 +43,7 @@ public class ChargingStation: MonoBehaviour {
 	
 	public IEnumerator ChargingFinished() {
 		yield return new WaitForSeconds(chargeTime);
+		_car.Charged = true;
 		powergrid.ConsumedEnergy -= rechargingRate;
 		if ( !_car.freeToMove() )
 		{

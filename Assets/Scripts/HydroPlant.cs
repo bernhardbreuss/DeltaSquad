@@ -24,8 +24,8 @@ public class HydroPlant : MonoBehaviour {
 		}
 	}
 	
-	private float RepairRate = 10.0f;
-	private float RepairCost = 10.0f;
+	public const float RepairRate = 10.0f;
+	public const float RepairCost = 10.0f;
 	
 	public bool GameOver { get; private set; }
 	
