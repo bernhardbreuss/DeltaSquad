@@ -36,9 +36,11 @@ public class StateTurning : AbstractCar {
 		}
 		else if(reach180 >= 180 && !carLooped){	
 			carLooped = true;
+			_car.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
 			_car.ChangeState(new StateGoingBack(_car));
 		}
 		else if(reach180 >= 180 && carLooped){
+			_car.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 			_car.ChangeState(new StateSearching(_car,true));
 		}	
 			
