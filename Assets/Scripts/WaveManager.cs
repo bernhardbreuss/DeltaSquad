@@ -48,6 +48,8 @@ public class WaveManager : MonoBehaviour {
 	}
 	
 	public void StartNextWave() {
+		GameObject.Find("Directional light").light.intensity = 0.5f;
+		
 		_waveIndex++;
 		IsDay = true;
 		
@@ -110,6 +112,7 @@ public class WaveManager : MonoBehaviour {
 		}
 		
 		Debug.Log("Wave finished");
+		GameObject.Find("Directional light").light.intensity = 0.1f;
 		isFinished = true;
 		IsDay = false;
 		StopAllCoroutines();

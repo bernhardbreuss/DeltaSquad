@@ -52,7 +52,7 @@ public class Menumove : MonoBehaviour {
 			iTween.RotateBy(gameObject, iTween.Hash("x", .25, "easeType", "easeInOutBack", "loopType", "pingPong", "delay", 0.2f));
 			
 			yield return new WaitForSeconds(1);
-			Application.LoadLevel(4);
+			Application.LoadLevel(2);
 		
 		}
 		if(gameObject.tag == "Instructions"){

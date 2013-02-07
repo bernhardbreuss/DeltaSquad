@@ -24,6 +24,7 @@ public class HUD : MonoBehaviour {
 	public GUIStyle ButtonReset;
 	public GUIStyle ButtonRepair;
 	public GUIStyle ButtonSkipNight;
+	public GUIStyle ButtonMenu;
 	
 	private GUIStyle ButtonIncreaseOwnDown;
 	private GUIStyle ButtonDecreaseOwnDown;
@@ -110,6 +111,11 @@ public class HUD : MonoBehaviour {
 	void OnGUI() {
 		if (PlayerPowergrid.hydroPlant.GameOver) {
 			GUI.Label(new Rect(0, 0, Screen.width, Screen.height), "Game Over\nYour Score: " + PlayerPowergrid.Euro.ToString("0.#0") + " $", LabelGameOver);
+			
+			if (GUI.Button(new Rect(((Screen.width - ButtonMenu.normal.background.width) / 2), ((Screen.height / 2) - ButtonMenu.normal.background.height + 100), ButtonMenu.normal.background.width, ButtonMenu.normal.background.height), "", ButtonMenu)) {
+				Application.LoadLevel(1);
+				Time.timeScale = 1.0f;
+			}
 		} else {
 			if (WaveManager.IsDay) {
 				DayHud ();
