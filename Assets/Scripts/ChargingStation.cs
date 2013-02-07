@@ -36,9 +36,7 @@ public class ChargingStation: MonoBehaviour {
 		
 		powergrid.ConsumedEnergy += rechargingRate;
 		powergrid.changeAmountEuro(Car.IncomeCar);			
-		StartCoroutine(ChargingFinished());	
-		 
-   	
+		StartCoroutine(ChargingFinished());	   	
 	}
 	
 	public IEnumerator ChargingFinished() {

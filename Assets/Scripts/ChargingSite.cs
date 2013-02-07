@@ -56,10 +56,10 @@ public class ChargingSite: MonoBehaviour {
 		Vector3 position = transform.position;
 		position.y += 30;
 		
-		powergrid.changeAmountEuro(-chargeStationCost);
-		Instantiate(chargingStation, position, chargingStation.rotation);
-		chargingStation.GetComponent<ChargingStation>().SetPowergrid(powergrid);				
-		//Destroy(gameObject);
+		powergrid.changeAmountEuro(-chargeStationCost);		
+		
+		Transform chargeStation = Instantiate(chargingStation, position, chargingStation.rotation) as Transform;
+		chargeStation.GetComponent<ChargingStation>().SetPowergrid(powergrid);		
 	}
 
 
