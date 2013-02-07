@@ -52,13 +52,13 @@ public class Menumove : MonoBehaviour {
 			iTween.RotateBy(gameObject, iTween.Hash("x", .25, "easeType", "easeInOutBack", "loopType", "pingPong", "delay", 0.2f));
 			
 			yield return new WaitForSeconds(1);
-			Application.LoadLevel(2);
+			Application.LoadLevel(4);
 		
 		}
 		if(gameObject.tag == "Instructions"){
 			iTween.RotateBy(gameObject, iTween.Hash("x", .25, "easeType", "easeInOutBack", "loopType", "pingPong", "delay", 0.2f));
 			yield return new WaitForSeconds(1);
-			Application.LoadLevel(3);
+			//Application.LoadLevel(3);
 		}
 		if(gameObject.tag == "Credits"){
 			iTween.RotateBy(gameObject, iTween.Hash("x", .25, "easeType", "easeInOutBack", "loopType", "pingPong", "delay", 0.2f));
