@@ -8,14 +8,9 @@ public class Car: MonoBehaviour {
 	
 	public CarManager CarManager { get; set; }
 	
-	//public Car(string carTag)
-	//{
-	//	transform.gameObject.tag = carTag; 
-	//}
-	
 	// Use this for initialization
 	void Start () {			
-		//_state = new StateSearching(this);	
+			
 		ChangeState(new StateSearching(this, false));
 	}	
 	
@@ -27,12 +22,12 @@ public class Car: MonoBehaviour {
 	public void ChangeState(ICarState newState) {
 		_state = newState;
 		_state.stateStarted();
-	}
+	}		
 	
-	//this function is used to find where the car should move to
-	public void findTargetPos()
-	{
-		
-	}	
+	//call carmanager and ask if the car is free to move
+	public bool freeToMove()
+	{		
+		return ( CarManager.IsWayFree(this) );		
+	}
 	
 }

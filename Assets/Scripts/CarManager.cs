@@ -32,37 +32,28 @@ public class CarManager: MonoBehaviour {
 		}
 	}
 	
-	public bool IsWayFree(Car car, float distance) {
+	public bool IsWayFree(Car car) {
 		
-		Debug.DrawRay (car.transform.position, car.transform.forward, Color.green);
+		float carPos = car.transform.position.z;
 		
-		bool result = true;
-	    RaycastHit hit = new RaycastHit();
-		
-	    if (Physics.Raycast(car.transform.position, car.transform.forward, out hit, distance))
+		foreach ( Car newCar in _cars)
 		{
-			//Debug.Log ("hit something");
-	        
-			string tag = hit.transform.tag;
-			
-			if (tag.Contains("Car"))
-			{ 		
-				Debug.Log ("car ahead");
-				result = false;
-	        } 
-			else 
-			{ 	
-				result = true;
-	        }
-			
-	    }
-		else
-		{
-			//Debug.Log ("not hiting anything");
-			result = true;	
+			if ( newCar != car)
+			{
+				Debug.Log("DEBUG : comparing other car");
+				float newCarPos = newCar.transform.position.z;
+				float distance = carPos - newCarPos;
+				if ( distance < 50.0f && distance > -50.0f )
+				{
+					return false;
+				}
+			}
+			else
+			{				
+				Debug.Log("DEBUG : comparing self");
+			}
 		}
-			
 		
-		return result;
+		return true;
 	}
 }

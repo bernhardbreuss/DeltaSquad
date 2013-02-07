@@ -46,7 +46,11 @@ public class ChargingStation: MonoBehaviour {
 	
 	public IEnumerator ChargingFinished() {
 		yield return new WaitForSeconds(chargeTime);
-		powergrid.ConsumedEnergy -= rechargingRate;	
+		powergrid.ConsumedEnergy -= rechargingRate;
+		if ( !_car.freeToMove() )
+		{
+			yield return new WaitForSeconds(1);
+		}
 		_car.transform.Translate(-35f,0f,0f);
 		_car.ChangeState(new StateLeaving(_car));
 		_visualizeCharging.startAnimation();
