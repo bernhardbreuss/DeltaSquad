@@ -3,6 +3,8 @@ using System;
 
 public abstract class AbstractCar:ICarState
 {
+	
+
 	public Car _car;	
 	public float carSpeed = 100.0f;
 	public bool carLooped = false;

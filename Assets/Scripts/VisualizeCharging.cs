@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class VisualizeCharging : MonoBehaviour {
-	public float turns = 2520.0f;
-	public float counter = 0f;
-	public float degrees = 126.0f;
+	
+	public float degrees = 30f;
+	
  // Use this for initialization
     void Start () {
         renderer.enabled = false;
@@ -12,9 +12,9 @@ public class VisualizeCharging : MonoBehaviour {
     
     // Update is called once per frame
     void Update () {
-        if(renderer.enabled && counter < turns){
-			counter += degrees;
-			gameObject.transform.Rotate(0f,degrees,0f);
+        if(renderer.enabled){
+			
+			gameObject.transform.Rotate(0f,degrees * Time.deltaTime * 30,0f);
         }
     }
     public void startAnimation(){ 
