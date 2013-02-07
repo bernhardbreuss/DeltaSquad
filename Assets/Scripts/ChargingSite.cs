@@ -29,7 +29,7 @@ public class ChargingSite: MonoBehaviour {
 	
 	void OnMouseOver () 
 	{
-		if (powergrid.Euro > chargeStationCost) {
+		if (powergrid.Euro >= chargeStationCost) {
 			renderer.material.SetColor ("_Color", hoverColour);
 		}
 	}
@@ -41,7 +41,7 @@ public class ChargingSite: MonoBehaviour {
 	
 	void OnMouseDown()
 	{
-		if(!isOccupied && powergrid.Euro > chargeStationCost)
+		if(!isOccupied && powergrid.Euro >= chargeStationCost)
 		{
 			isOccupied = true;
 			AddChargingStation();
