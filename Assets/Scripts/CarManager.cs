@@ -27,6 +27,10 @@ public class CarManager: MonoBehaviour {
 		Destroy(car.gameObject);
 		_cars.Remove(car);
 		
+		if (!car.Charged) {
+			waveManager.playerGrid.hydroPlant.Health -= ((HydroPlant.RepairRate * Car.IncomeCar) / HydroPlant.RepairCost);
+		}
+		
 		if (_cars.Count == 0) {
 			waveManager.WaveFinished();
 		}
