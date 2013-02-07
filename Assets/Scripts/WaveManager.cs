@@ -16,7 +16,7 @@ public class WaveManager : MonoBehaviour {
 	public NPCPowergrid sunGrid;
 	public float nightDuration;
 	public float CurrentNightDuration { get; private set; }
-	
+	public int builtChargeStations { get; set; }
 	
 	private bool _allCarsSpawned;
 	
