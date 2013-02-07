@@ -11,11 +11,9 @@ public class WaveManager : MonoBehaviour {
 	//default time between two spawned cars at the beginning
 	public float baseTimeBetweenCars = 5f;
 	public float TimeBetweenCars { get; set; }
-	private Weather sun;
-	private Weather wind;
 	public Powergrid playerGrid;
-	public Powergrid windGrid;
-	public Powergrid sunGrid;
+	public NPCPowergrid windGrid;
+	public NPCPowergrid sunGrid;
 	
 	
 	private bool _allCarsSpawned;
@@ -54,8 +52,8 @@ public class WaveManager : MonoBehaviour {
 			Wave wave = _waves[_waveIndex];
 
 			StartCoroutine(CarWave(wave._car));
-			StartCoroutine(WeatherWave(wave._wind, wind));
-			StartCoroutine(WeatherWave(wave._sun, sun));
+			StartCoroutine(WeatherWave(wave._wind, windGrid.weather));
+			StartCoroutine(WeatherWave(wave._sun, sunGrid.weather));
 		}
 	}
 	
@@ -78,14 +76,14 @@ public class WaveManager : MonoBehaviour {
 		for (int i = 0; i < tasks.Count; i++) {
 			Task task = tasks[i];
 			if (task._command == Commands.ChangeTo) {
-				Debug.Log(((weather == wind) ? "wind" : "sun") + " changing to " + task._v + " within " + task._time);
+				Debug.Log(((weather == windGrid.weather) ? "wind" : "sun") + " changing to " + task._v + " within " + task._time);
 				weather.ChangeTo(task._v, task._time);
 				yield return new WaitForSeconds(task._time);
 			} else if (task._command == Commands.Wait) {
-				Debug.Log(((weather == wind) ? "wind" : "sun") + " waits for " + task._time);
+				Debug.Log(((weather == windGrid.weather) ? "wind" : "sun") + " waits for " + task._time);
 				yield return new WaitForSeconds(task._time);
 			} else {
-				Debug.Log(((weather == wind) ? "wind" : "sun") + " jumps to " + task._commandNr);
+				Debug.Log(((weather == windGrid.weather) ? "wind" : "sun") + " jumps to " + task._commandNr);
 				if (task._command == Commands.GotoRemove) {
 					tasks.RemoveAt(i);
 				}

@@ -6,7 +6,7 @@ public class ChargingSite: MonoBehaviour {
 	private bool isOccupied = false;
 	public PlayerPowergrid powergrid;
 	
-	public float chargeStationCost = 100;
+	private float chargeStationCost = 10;
 	
 	public Transform chargingStation;
 	
@@ -29,18 +29,19 @@ public class ChargingSite: MonoBehaviour {
 	
 	void OnMouseOver () 
 	{
-		renderer.material.SetColor ("_Color", hoverColour);    
+		if (powergrid.Euro > chargeStationCost) {
+			renderer.material.SetColor ("_Color", hoverColour);
+		}
 	}
 		
 	void OnMouseExit()
 	{
 		renderer.material.SetColor ("_Color", colour);
-	
 	}	
 	
 	void OnMouseDown()
 	{
-		if(!isOccupied)
+		if(!isOccupied && powergrid.Euro > chargeStationCost)
 		{
 			isOccupied = true;
 			AddChargingStation();

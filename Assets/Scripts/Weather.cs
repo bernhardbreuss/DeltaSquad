@@ -13,9 +13,8 @@ public class Weather : MonoBehaviour {
 			return _energyProductionRate;
 		}
 		set {
-			float tmp = value;
-			tmp = Mathf.Max(tmp, MinEnergyProductionRate);
-			_energyProductionRate = Mathf.Min(tmp, MaxEnergyProductionRate);
+			value = Mathf.Max(value, MinEnergyProductionRate);
+			_energyProductionRate = Mathf.Min(value, MaxEnergyProductionRate);
 		}
 	}
 	

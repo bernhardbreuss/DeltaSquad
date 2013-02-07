@@ -22,6 +22,7 @@ public class HUD : MonoBehaviour {
 	public GUIStyle ButtonIncreaseSolar;
 	public GUIStyle ButtonDecreaseSolar;
 	public GUIStyle ButtonReset;
+	public GUIStyle ButtonRepair;
 	
 	private GUIStyle ButtonIncreaseOwnDown;
 	private GUIStyle ButtonDecreaseOwnDown;
@@ -44,6 +45,7 @@ public class HUD : MonoBehaviour {
 	public PlayerPowergrid PlayerPowergrid;
 	public NPCPowergrid WindPowergrid;
 	public NPCPowergrid SolarPowergrid;
+	public WaveManager WaveManager;
 	
 	private int _buttonWidth;
 	private int _buttonHeight;
@@ -51,6 +53,10 @@ public class HUD : MonoBehaviour {
 	private Buttons _ownButtons;
 	private Buttons _windButtons;
 	private Buttons _solarButtons;
+	
+	float _hzBarWidth;
+	float _ownBarX;
+	float _ownBarY;
 	
 	private class Buttons {
 		public GUIStyle increaseNormal;
@@ -69,7 +75,11 @@ public class HUD : MonoBehaviour {
 		
 		_buttonWidth = ButtonIncreaseOwn.normal.background.width;
 		_buttonHeight = ButtonIncreaseOwn.normal.background.height;
+	
 		
+		_hzBarWidth = (HzBar.width + (2 * _buttonWidth));
+		_ownBarX = ((Screen.width - _hzBarWidth) / 2);
+		_ownBarY = (Screen.height - HzBar.height);
 	}
 	
 	private Buttons CreateButtonStruct(GUIStyle increase, GUIStyle decrease) {
@@ -95,26 +105,36 @@ public class HUD : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		float hzBarWidth = (HzBar.width + (2 * _buttonWidth));
-		float ownBarX = ((Screen.width - hzBarWidth) / 2);
-		float ownBarY = (Screen.height - HzBar.height);
+		GUI.Label(new Rect(_ownBarX + _hzBarWidth - _buttonWidth, _ownBarY, 50, 30), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
+				
+		GUI.Label(new Rect(_ownBarX + _hzBarWidth - _buttonWidth, _ownBarY + 30, Screen.width, 30), PlayerPowergrid.hydroPlant.Health.ToString("0 HP"), LabelHp);
 		
-		HzBarGroup(ownBarX, ownBarY, _ownButtons, IncreaseOwnKey, DecreaseOwnKey, PlayerPowergrid);
+		if (WaveManager.IsDay) {
+			DayHud ();
+		} else {
+			NightHud();
+		}
+	}
+	
+	private void DayHud() {		
+		HzBarGroup(_ownBarX, _ownBarY, _ownButtons, IncreaseOwnKey, DecreaseOwnKey, PlayerPowergrid);
 		
 		HzBarGroup(0, 0, _windButtons, IncreaseWindKey, DecreaseWindKey, WindPowergrid);
 		
-		HzBarGroup((Screen.width - hzBarWidth), 0, _solarButtons, IncreaseSolarKey, DecreaseSolarKey, SolarPowergrid);
-				
-		GUI.Label(new Rect(ownBarX + hzBarWidth - _buttonWidth, ownBarY, 50, 30), PlayerPowergrid.Euro.ToString("#,##0.00 $"), LabelEuro);
-				
-		GUI.Label(new Rect(ownBarX + hzBarWidth - _buttonWidth, ownBarY + 30, Screen.width, 20), PlayerPowergrid.hydroPlant.Health.ToString("0 HP"), LabelHp);
+		HzBarGroup((Screen.width - _hzBarWidth), 0, _solarButtons, IncreaseSolarKey, DecreaseSolarKey, SolarPowergrid);
 		
-		if (GUI.Button(new Rect((ownBarX + hzBarWidth), (Screen.height - ButtonReset.normal.background.height), ButtonReset.normal.background.width, ButtonReset.normal.background.height), "", ButtonReset)) {
+		if (GUI.Button(new Rect((_ownBarX + _hzBarWidth), (Screen.height - ButtonReset.normal.background.height), ButtonReset.normal.background.width, ButtonReset.normal.background.height), "", ButtonReset)) {
 			PlayerPowergrid.ResetGrid();
 		}
 		
-		DrawWeather(WeatherWind, hzBarWidth, 0.0f, WindPowergrid.weather);
-		DrawWeather(WeatherSolar, (Screen.width - hzBarWidth - WeatherSolar.width), 0.0f, SolarPowergrid.weather);
+		DrawWeather(WeatherWind, _hzBarWidth, 0.0f, WindPowergrid.weather);
+		DrawWeather(WeatherSolar, (Screen.width - _hzBarWidth - WeatherSolar.width), 0.0f, SolarPowergrid.weather);
+	}
+	
+	private void NightHud() {
+		if (GUI.RepeatButton(new Rect((_ownBarX + _hzBarWidth - _buttonWidth), (_ownBarY + 60), ButtonRepair.normal.background.width, ButtonRepair.normal.background.height), "", ButtonRepair)) {
+			PlayerPowergrid.hydroPlant.Repair();
+		}
 	}
 	
 	private void HzBarGroup(float x, float y, Buttons buttons, KeyCode increaseKey, KeyCode decreaseKey, Powergrid powergrid) {

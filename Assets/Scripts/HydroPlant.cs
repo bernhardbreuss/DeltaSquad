@@ -7,8 +7,24 @@ public class HydroPlant : MonoBehaviour {
 	public float MinHealth = 0.0f;
 	public float InitialHealth = 100.0f;
 	
+	private float _health;
+	public float Health {
+		get {
+			return _health;
+		}
+		set {
+			if (value < MinHealth) {
+				// TODO: raise GameOver
+			} else {
+				value = Mathf.Min(value, MaxHealth);
+			}
+			
+			_health = value;
+		}
+	}
 	
-	public float Health { get; set; }
+	private float RepairRate = 10.0f;
+	private float RepairCost = 10.0f;
 	
 	private enum State {
 		Idle,
@@ -48,11 +64,6 @@ public class HydroPlant : MonoBehaviour {
 		}
 	}
 	
-	public void Heal() 
-	{
-		Health = MaxHealth;		
-	}
-	
 	public void Pump() {
 		float consumedEnergy = powergrid.baseEnergy - powergrid.ProducedEnergy;
 		float waterFlow = Time.deltaTime * consumedEnergy * efficency;
@@ -70,6 +81,16 @@ public class HydroPlant : MonoBehaviour {
 	
 	public void Stop() {
 		powergrid.ProducedEnergy = powergrid.baseEnergy;
+	}
+	
+	public void Repair() {
+		float costs = (RepairCost * Time.deltaTime);
+		
+		if (costs < powergrid.Euro && (Health < MaxHealth)) {
+			powergrid.changeAmountEuro(-costs);
+			float repair = (RepairRate * Time.deltaTime);
+			Health += repair;
+		}
 	}
 	
 }
